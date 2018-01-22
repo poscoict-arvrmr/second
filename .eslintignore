@@ -50,8 +50,4 @@ main.js.map
 
 .idea
 npm-debug.log.*
-
-package-lock.json
-app/package-lock.json
-yarn.lock
-app/yarn.lock
+__snapshots__

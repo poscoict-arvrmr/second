@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello Electron React!</title>
+    <script>
+      (function() {
+        if (!process.env.HOT) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = './dist/style.css';
+          // HACK: Writing the script path should be done with webpack
+          document.getElementsByTagName('head')[0].appendChild(link);
+        }
+      }());
+    </script>
+  </head>
+  <body>
+    <div style="float:right"><a id="close" href="javascript:window.close()">X</a></div>
+    <div id="root"></div>
+    <script>
+      {
+        const scripts = [];
+
+        // Dynamically insert the DLL script in development env in the
+        // renderer process
+        if (process.env.NODE_ENV === 'development') {
+          scripts.push('../dll/renderer.dev.dll.js');
+        }
+
+        // Dynamically insert the bundled app script in the renderer process
+        const port = process.env.PORT || 1212;
+        scripts.push(
+          (process.env.HOT)
+            ? 'http://localhost:' + port + '/dist/renderer.dev.js'
+            : './dist/renderer.prod.js'
+        );
+
+        document.write(
+          scripts
+            .map(script => '<script defer src="' + script + '"><\/script>')
+            .join('')
+        );
+//$$$$$ renderer.dev.js 을 로딩하도록 함.
+//$$$$$ webpack.config.renderer.dev.js 를 가지고 WebPack이 생성하는 파일임.
+//$$$$$ webpack.config.renderer.dev.js 의 entry를 통해 app/index.js 이 시작점임을 알 수 있음. 
+        console.log('뭐니', scripts);
+      }
+    </script>
+  </body>
+</html>
