@@ -7,10 +7,10 @@ import { Switch, Route } from 'react-router';
 import App from './App';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
-import MenuPage from './containers/MenuPage';
-import FilesPage from './containers/FilesPage';
-import CameraPage from './containers/CameraPage';
-import SettingsPage from './containers/SettingsPage';
+import MenuPage from './MenuPage';
+import FilesPage from './FilesPage';
+import CameraPage from './CameraPage';
+import SettingsPage from './SettingsPage';
 
 type RootType = {
   store: {},

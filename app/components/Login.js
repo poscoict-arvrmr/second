@@ -18,17 +18,17 @@ export default class Login extends Component<Props> {
     console.log('[Login.js]','render', this, this.props);
     return (
       <div className={styles.login}>
-        <h1> Login </h1>
+        <h1> Log-in </h1>
         <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>Email</label>
+          <div className={styles.login}>
+            <label>ID &nbsp;&nbsp;&nbsp;</label>
             <input ref={(email) => this.email = email} placeholder="Email"/>
           </div>
-          <div>
-            <label>Password</label>
+          <div className={styles.login}>
+            <label>PW &nbsp;&nbsp;</label>
             <input type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit">Log-in</button>
         </form>
       </div>
     );

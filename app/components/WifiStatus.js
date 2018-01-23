@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as WifiCheckerActions from '../actions/defaultChecker';
 import { firebase } from '../utils/firebase';
+import { Link } from 'react-router-dom';
 
 type Props = {
 };
@@ -23,7 +24,11 @@ export class WifiStatus extends Component<Props> {
         </div>
         {
           this.props.checker.authed &&
-          <div style={{position:'absolute',top:20+'px',right:0+'px'}}><button onClick={this.singout}>logout</button></div>
+          <div style={{position:'absolute',top:20+'px',right:0+'px'}}>
+            <button onClick={this.singout}>
+              <Link exact to="/">logout</Link>
+            </button>
+          </div>
         }
       </div>
     );
