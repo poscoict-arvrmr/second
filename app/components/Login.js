@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { firebase } from '../utils/firebase';
+import styles from './Mymenu.css';
 
 type Props = {};
 
@@ -16,7 +17,7 @@ export default class Login extends Component<Props> {
   render() {
     console.log('[Login.js]','render', this, this.props);
     return (
-      <div>
+      <div className={styles.login}>
         <h1> Login </h1>
         <form onSubmit={this.handleSubmit}>
           <div>
