@@ -12,10 +12,17 @@ import FilesPage from './FilesPage';
 import CameraPage from './CameraPage';
 import SettingsPage from './SettingsPage';
 
+import { createStore } from 'redux';
+import reducer from '../reducers/defaultChecker';
+
 type RootType = {
-  store: {},
+  //store : {},
   history: {}
 };
+
+//redux에서 보통 쓰는 방식으로 reducer 함수를 import 해서 사용해봄.
+let store = createStore(reducer);
+
 export default function Root({ store, history }: RootType) {
   console.log('[Root.js]','render', store);
   return (
