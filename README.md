@@ -10,9 +10,13 @@ https://poscoict-arvrmr.github.io/docs/ 를 참고하세요.
 1) 새로운 폴더를 만든다.
 <code>
 $ mkdir new
+
 $ cd new
+
 $ git init
+
 $ git remote add -t uitest -f origin https://github.com/poscoict-arvrmr/second.git
+
 $ git pull origin master
 </code>
 생성한 폴더의 master 브랜치에 remote repo의 uitest 브랜치가 복제되었다.
@@ -22,6 +26,7 @@ $ git pull origin master
 현재 브랜치는 master
 <code>
 $ git clone -b uitest --single-branch https://github.com/poscoict-arvrmr/second.git --depth 1
+
 $ git checkout uitest
 </code>
 하면 uitest 라는 브랜치가 생겼고, 그 안에 remote branch 내용이 복제되어있다.
@@ -30,9 +35,13 @@ master 브랜치는 그대로 살아있다.
 ### 실행 팁 
 참고로 package.json 에서 firebase 를 찾아 지운 뒤,
 <code>
+
 $ npm install
+
 //에러 나도 걍 무시..
+
 $ npm install firebase --save 
+
 $ npm run dev 
 </code>
 하면 됩니다.
