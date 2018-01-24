@@ -29,7 +29,6 @@ $ git checkout uitest
 ### 실행 팁 
 참고로 package.json 에서 firebase 를 찾아 지운 뒤,
 
-<code>
 ```
 $ npm install
 $ npm install firebase --save 
