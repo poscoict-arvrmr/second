@@ -5,7 +5,7 @@ import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
 import { firebase } from './utils/firebase';
-import { toggleImage, showHome, showLogin } from './actions/defaultChecker';
+import { toggleImage, showHome, showLogin } from './reducers/defaultChecker';
 
 console.log('뭐니', '시작해볼까', navigator.onLine);
 

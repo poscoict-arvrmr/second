@@ -4,7 +4,8 @@ import Home from '../components/Home';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as ShowMessageActions from '../actions/defaultChecker';
+// * ===> actionCreators 로 바꿈. actionCreators function들만 묶은 오브젝트.
+import { actionCreators as ShowMessageActions } from '../reducers/defaultChecker';
 
 type Props = {
   authed:boolean,

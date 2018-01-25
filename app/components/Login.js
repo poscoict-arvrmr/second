@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { firebase } from '../utils/firebase';
+import styles from './Mymenu.css';
 
 type Props = {};
 
@@ -16,18 +17,18 @@ export default class Login extends Component<Props> {
   render() {
     console.log('[Login.js]','render', this, this.props);
     return (
-      <div>
-        <h1> Login </h1>
+      <div className={styles.login}>
+        <h1> Log-in </h1>
         <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>Email</label>
+          <div className={styles.login}>
+            <label>ID &nbsp;&nbsp;&nbsp;</label>
             <input ref={(email) => this.email = email} placeholder="Email"/>
           </div>
-          <div>
-            <label>Password</label>
+          <div className={styles.login}>
+            <label>PW &nbsp;&nbsp;</label>
             <input type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit">Log-in</button>
         </form>
       </div>
     );
