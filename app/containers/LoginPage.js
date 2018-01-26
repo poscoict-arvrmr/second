@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Login from '../components/Login';
-import * as LoginActions from '../actions/defaultChecker';
+import { LoginActions } from '../actions/defaultChecker';
 
 function mapStateToProps(state) {
   console.log('[LoginPage.js]','mapStateToProps', state);

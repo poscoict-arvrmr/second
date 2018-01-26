@@ -20,12 +20,10 @@ const store = configureStore();
 window.addEventListener('online', (e) => {
   console.log('[index.js]','online 입니다.', store.getState().checker);
   store.dispatch(online());
-  //store.dispatch(toggleImage(store,true));
 });
 window.addEventListener('offline', (e) => {
   console.log('[index.js]','offline 입니다.', store.getState().checker);
   store.dispatch(offline());
-  //store.dispatch(toggleImage(store,false));
 });
 // configureStore.dev.js 와 configureStore.prod.js 에서는 첫번재 인자인 reducer를 넘길때 combineReducers() 가 사용함.
 // - https://redux.js.org/docs/api/combineReducers.html

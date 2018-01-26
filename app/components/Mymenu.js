@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as LoginActions from '../actions/defaultChecker';
+import { LoginActions } from '../actions/defaultChecker';
 import { Link } from 'react-router-dom';
 import styles from './Mymenu.css';
 

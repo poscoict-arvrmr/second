@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as WifiCheckerActions from '../actions/defaultChecker';
+import { WifiCheckerActions } from '../actions/defaultChecker';
 import { firebase } from '../utils/firebase';
 
 type Props = {

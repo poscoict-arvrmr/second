@@ -15,15 +15,6 @@ export function offline(){
     return {
         type : OFFLINE_STATUS    }
 }
-export function toggleImage(store, status){
-    console.log('[checker.js]','action','toggleImage', store, status );
-
-    if (status) {
-        return store.dispatch(online());
-    }else{
-        return store.dispatch(offline());
-    }
-}
 export function showHome(user){
     console.log('[checker.js]','action','login');
     return {
@@ -36,3 +27,13 @@ export function showLogin(){
         type : LOGIN_NEEDED
     }
 }
+
+const WifiCheckerActions = {
+    online,
+    offline
+}
+const LoginActions = {
+    showHome,
+    showLogin
+}
+export { WifiCheckerActions, LoginActions };
