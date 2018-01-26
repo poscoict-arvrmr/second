@@ -5,9 +5,7 @@ import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
 import { firebase } from './utils/firebase';
-import { toggleImage, showHome, showLogin } from './reducers/defaultChecker';
-
-console.log('뭐니', '시작해볼까', navigator.onLine);
+import { showHome, showLogin, online, offline } from './actions/defaultChecker';
 
 // 
 // store는 createStore()를 호출해서 생성한다. 
@@ -20,18 +18,20 @@ console.log('뭐니', '시작해볼까', navigator.onLine);
 // - https://redux.js.org/docs/api/createStore.html
 const store = configureStore();
 window.addEventListener('online', (e) => {
-  console.log('[index.js]','online 입니다.');
-  store.dispatch(toggleImage(store,true));
+  console.log('[index.js]','online 입니다.', store.getState().checker);
+  store.dispatch(online());
+  //store.dispatch(toggleImage(store,true));
 });
 window.addEventListener('offline', (e) => {
-  console.log('[index.js]','offline 입니다.');
-  store.dispatch(toggleImage(store,false));
+  console.log('[index.js]','offline 입니다.', store.getState().checker);
+  store.dispatch(offline());
+  //store.dispatch(toggleImage(store,false));
 });
 // configureStore.dev.js 와 configureStore.prod.js 에서는 첫번재 인자인 reducer를 넘길때 combineReducers() 가 사용함.
 // - https://redux.js.org/docs/api/combineReducers.html
 
-console.log('뭐니', 'store', store);
-console.log('뭐니', 'store.getState()', store.getState());
+console.log('[index.js]', 'store', store);
+console.log('[index.js]', 'store.getState()', store.getState());
 
 
 
@@ -79,32 +79,17 @@ if (module.hot) {
   });
 }
 
-store.dispatch(toggleImage(store, navigator.onLine));
-
 firebase.auth().onAuthStateChanged( (user) => {
   if(user){
-    console.log('log in');
+    console.log('[index.js]','log in');
     setTimeout(() => {
       history.push("/");
       store.dispatch(showHome(user));
     }, 1000);
-/*
-    firebase.auth().signOut().then( () => console.log("sign out") ).catch(error=> console.log(error));
-*/
   }else{
-    console.log('log out');
+    console.log('[index.js]','log out');
     setTimeout(() => {
       store.dispatch(showLogin());
     }, 1000);
-/*
-    const email = 'fairies@poscoict.com';
-    const password = '123456';
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
-      console.log(error);
-      alert(error.message);
-      if(error.code=='auth/user-not-found'){
-      }
-    }); 
-*/  
   }
 });
