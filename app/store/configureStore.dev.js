@@ -5,6 +5,7 @@ import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 import * as defaultActions from '../actions/defaultChecker';
+import * as gestureActions from '../actions/gesture';
 import type{ defaultStateType } from '../reducers/defaultChecker'; 
 
 const history = createHashHistory();
@@ -35,6 +36,7 @@ const configureStore = (initialState?: defaultStateType) => {
   // Redux DevTools Configuration
   const actionCreators = {
     ...defaultActions,
+    ...gestureActions,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
