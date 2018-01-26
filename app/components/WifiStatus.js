@@ -11,6 +11,7 @@ type Props = {
 export class WifiStatus extends Component<Props> {
   props: Props;
   singout = (e) =>{
+    console.log('[WifiStatus.js]','singout', this, this.props, this.props.checker);
     firebase.auth().signOut();
   }
   render() {
@@ -20,6 +21,7 @@ export class WifiStatus extends Component<Props> {
       <div id="wifi-status">
         <div>
           <i className={this.props.checker.icon}></i>
+          현재위치 : { this.props.router.location.pathname }
         </div>
         {
           this.props.checker.authed &&

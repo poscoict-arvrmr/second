@@ -80,14 +80,9 @@ if (module.hot) {
 firebase.auth().onAuthStateChanged( (user) => {
   if(user){
     console.log('[index.js]','log in');
-    setTimeout(() => {
-      history.push("/");
-      store.dispatch(showHome(user));
-    }, 1000);
+    store.dispatch(showHome(user));
   }else{
     console.log('[index.js]','log out');
-    setTimeout(() => {
-      store.dispatch(showLogin());
-    }, 1000);
+    store.dispatch(showLogin());
   }
 });

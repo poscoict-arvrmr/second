@@ -47,6 +47,24 @@ type Props = {};
 
 export default class Login extends Component<Props> {
   props: Props;
+  componentDidUpdate(){
+    console.log('[Login.js]','componentDidUpdate');
+    if( this.props.checker.authed ){
+      console.log('[Login.js]','componentDidUpdate', "홈으로 이동합니다.");
+      this.props.history.push("/");
+    }else{
+      console.log('[Login.js]','componentDidUpdate', "로그인페이지입니다.");
+    }
+  }
+  componentDidMount(){
+    console.log('[Login.js]','componentDidMount');
+    if( this.props.checker.authed ){
+      console.log('[Login.js]','componentDidMount', "홈으로 이동합니다.");
+      this.props.history.push("/");
+    }else{
+      console.log('[Login.js]','componentDidMount', "로그인페이지입니다.");
+    }
+  }
   componentWillUnmount(){
     console.log('[Login.js]','componentWillUnmount','unsubscribe');
     client.unsubscribe('gesture/state',cb_unsubscribe);

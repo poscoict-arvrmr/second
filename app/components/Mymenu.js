@@ -17,7 +17,7 @@ export class MyMenu extends Component {
       {
         !!this.props.checker.authed &&
         <div className={styles.content} data-tid="container">
-          <Link exact to="/"><i className="fa fa-home fa-5x"></i></Link>
+          <Link to="/"><i className="fa fa-home fa-5x"></i></Link>
           &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Link to="/myfiles"><i className="fa fa-file fa-4x"></i></Link>
           &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
