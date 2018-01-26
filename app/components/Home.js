@@ -26,7 +26,7 @@ export default class Home extends Component<Props> {
           <div>
             {this.props.msg}
           </div>
-          <Link to="/menu">
+          <Link to="/">
             <Button color="gray" onClick={() => console.log('Clicked!')} size="30" paddingLeft="20px" paddingRight="20px" margin="20px">
             Start
             </Button>

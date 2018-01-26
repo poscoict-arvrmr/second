@@ -68,7 +68,7 @@ app.on('ready', async () => {
 
   mainWindow = new BrowserWindow({frame: false, fullscreen:true});
 /*
-//$$$$$ mainWindow 를 fullscreen 으로 변경했음.
+//$$$$$ mainWindow 를 fullscreen 으로 변경했음: frame: false, fullscreen:true
   mainWindow = new BrowserWindow({ show: false, width: 1024, height: 728 });
 */
 

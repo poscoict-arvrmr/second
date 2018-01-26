@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { actionCreators as WifiCheckerActions } from '../reducers/defaultChecker';
 import { firebase } from '../utils/firebase';
 import { Link } from 'react-router-dom';
+import Mymenu from './Mymenu';
+import styles from './Mymenu.css';
 
 type Props = {
 };
@@ -25,8 +27,9 @@ export class WifiStatus extends Component<Props> {
         </div>
         {
           this.props.checker.authed &&
-          <div style={{position:'absolute',top:20+'px',right:0+'px'}}>
-            <button onClick={this.singout}>
+          <div className={styles.topMenu}>
+            <Mymenu />
+            <button onClick={this.singout} style={{position:'absolute',top:20+'px',right:0+'px'}}>
               <Link exact to="/">logout</Link>
             </button>
           </div>
@@ -35,6 +38,7 @@ export class WifiStatus extends Component<Props> {
     );
   }
 }
+//로그인이 안된 상태면 메뉴가 안 뜨도록, 로그아웃 버튼 + 상단 메뉴 버튼 묶어줌. 
 
 function mapStateToProps(state) {
   console.log('[WifiStatus.js]','mapStateToProps', state, state.checker);

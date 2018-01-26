@@ -7,7 +7,6 @@ import { Switch, Route } from 'react-router';
 import App from './App';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
-import MenuPage from './MenuPage';
 import FilesPage from './FilesPage';
 import CameraPage from './CameraPage';
 import SettingsPage from './SettingsPage';
@@ -30,7 +29,6 @@ export default function Root({ store, history }: RootType) {
       <ConnectedRouter history={history}>
         <App>
           <Switch>
-            <Route path="/menu" component={MenuPage} />      
             <Route path="/myfiles" component={FilesPage} />
             <Route path="/mycamera" component={CameraPage} />
             <Route path="/settings" component={SettingsPage} />

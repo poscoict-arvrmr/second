@@ -8,7 +8,6 @@ export default class SettingsPage extends Component {
   render() {
     return (
       <div>
-        <Mymenu />
         <Settings />
       </div>
     );

@@ -6,7 +6,8 @@ export type defaultStateType = {
     status : boolean,
     icon : string,
     authed : boolean,
-    msg : string
+    msg : string,
+    isRecording: boolean //카메라 액션추가
 }
 
 //actions
@@ -14,6 +15,9 @@ const ONLINE_STATUS = 'ONLINE';
 const OFFLINE_STATUS = 'OFFLINE';
 const LOGIN_OK = 'LOGIN_OK';
 const LOGIN_NEEDED = 'LOGIN_NEEDED';
+//카메라 액션 추가
+const START_REC = 'START_REC';
+const STOP_REC = 'STOP_REC';
 
 //action Creators
 //몇개만 export 했음. app/index.js 에서 개별적으로 import해서 쓰기때문에.
@@ -50,12 +54,27 @@ export function showLogin(){
     }
 }
 
+//카메라 액션 추가
+export function startRec(){
+    console.log("Start Video Recording");
+    return {
+        type :  START_REC
+    }
+}
+export function stopRec(){
+    console.log("Stop Video Recording");
+    return {
+        type :  STOP_REC
+    }
+}
+
 //reducer
 const defaultState = {
     status: navigator.onLine,
     icon  : navigator.onLine ? "fa fa-wifi fa-5x" : "fa fa-ban fa-5x",
     authed : false,
-    msg   : "Loading internet..."
+    msg   : "Loading internet...",
+    isRecording : false  //카메라 액션 추가
 }
 console.log(defaultState);
 console.log("------------REDUCER/defaultState---------------");
@@ -90,19 +109,38 @@ export default function checker(state=defaultState, action){
                 authed:false,
                 msg : "로그인이 필요합니다."
             }
-        default :
+        
+        //카메라 액션 추가
+        case START_REC :
+            console.log('[reducer/STARTREC]', 'reducer', 'checker',state,action);
+            return {
+                ...state,
+                isRecording: true
+            }
+        
+        case STOP_REC :
+            console.log('[reducer/STOPREC]', 'reducer', 'checker',state,action);
+            return {
+                ...state,
+                isRecording: false
+            }
+        default:
             return state;
+
     }
 }
 
 //exports
 
+console.log("카메라 액션 추가");
 const actionCreators = {
     online,
     offline,
     toggleImage,
     showHome,
-    showLogin
+    showLogin,
+    startRec,
+    stopRec
 }
 
 export { actionCreators };
