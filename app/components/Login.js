@@ -31,10 +31,9 @@ client.on('message', (topic, message) => {
   console.log('[Login.js]','No handler for topic ', topic);
   client.end();
 });
-client.on('connect', () => {
-  console.log('[Login.js]','on', 'connect');
-  client.subscribe('gesture/state', {qos:0}, cb_subscribe);
-});    
+//client.on('connect', () => {
+//  console.log('[Login.js]','on', 'connect');
+//});    
 
 function cb_unsubscribe(err){
   console.log('[Login.js]','unsubscribe callback', err);
@@ -44,30 +43,30 @@ function cb_subscribe(err,granted){
 }
 
 type Props = {};
-
 export default class Login extends Component<Props> {
   props: Props;
-  componentDidUpdate(){
-    console.log('[Login.js]','componentDidUpdate');
-    if( this.props.checker.authed ){
-      console.log('[Login.js]','componentDidUpdate', "홈으로 이동합니다.");
-      this.props.history.push("/");
+  componentWillMount(){
+    if(client.connected){
     }else{
-      console.log('[Login.js]','componentDidUpdate', "로그인페이지입니다.");
+      console.log('[Login.js]','componentWillMount','reconnect');
+      client.reconnect();
     }
+    console.log('[Login.js]','componentWillMount','subscribe');
+    client.subscribe('gesture/state', {qos:0}, cb_subscribe);
   }
-  componentDidMount(){
-    console.log('[Login.js]','componentDidMount');
-    if( this.props.checker.authed ){
-      console.log('[Login.js]','componentDidMount', "홈으로 이동합니다.");
-      this.props.history.push("/");
+  componentDidUpdate(){
+    if(client.connected){
     }else{
-      console.log('[Login.js]','componentDidMount', "로그인페이지입니다.");
+      console.log('[Login.js]','componentDidUpdate','reconnect');
+      client.reconnect();
     }
+    console.log('[Login.js]','componentDidUpdate','subscribe');
+    client.subscribe('gesture/state', {qos:0}, cb_subscribe);
   }
   componentWillUnmount(){
     console.log('[Login.js]','componentWillUnmount','unsubscribe');
     client.unsubscribe('gesture/state',cb_unsubscribe);
+    client.end();
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -76,7 +75,7 @@ export default class Login extends Component<Props> {
     })
   }
   render() {
-    console.log('[Login.js]','render', this, this.props, client.options);
+    console.log('[Login.js]','render', this, this.props, client.options, client.connected);
     return (
       <div className={styles.login}>
         <h1> Log-in </h1>

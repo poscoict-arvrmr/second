@@ -17,6 +17,7 @@ client.on('message', (topic, message) => {
       if(message.toString() === 'tap'){
         console.log('로그인 페이지로 이동합니다.')
         history.push("/login");
+        
       }else {
         console.log('지원하지 않는 제스쳐입니다.')
       }
@@ -25,10 +26,9 @@ client.on('message', (topic, message) => {
   console.log('[Home.js]','No handler for topic ', topic);
   client.end()
 });
-client.on('connect', () => {
-  console.log('[Home.js]','on', 'connect');
-  client.subscribe('gesture/state', {qos:0}, cb_subscribe);
-});
+//client.on('connect', () => {
+//  console.log('[Home.js]','on', 'connect');
+//});
 
 function cb_unsubscribe(err){
   console.log('[Home.js]','unsubscribe callback', err);
@@ -42,12 +42,31 @@ type Props = {
 
 export default class Home extends Component<Props> {
   props: Props;
+  componentWillMount(){
+    if(client.connected){
+    }else{
+      console.log('[Home.js]','componentWillMount','reconnect');
+      client.reconnect();
+    }
+    console.log('[Home.js]','componentWillMount','subscribe');
+    client.subscribe('gesture/state', {qos:0}, cb_subscribe);
+  }
+  componentDidUpdate(){
+    if(client.connected){
+    }else{
+      console.log('[Home.js]','componentDidUpdate','reconnect');
+      client.reconnect();
+    }
+    console.log('[Home.js]','componentDidUpdate','subscribe');
+    client.subscribe('gesture/state', {qos:0}, cb_subscribe);
+  }
   componentWillUnmount(){
     console.log('[Home.js]','componentWillUnmount','unsubscribe');
     client.unsubscribe('gesture/state',cb_unsubscribe);
+    client.end();
   }
   render() {
-    console.log('[Home.js]','render', this, this.props, client.options);
+    console.log('[Home.js]','render', this, this.props, client.options, client.connected);
     return (
     //login하기 전에는 로딩 아이콘, 한 후에는 사용자 아이콘 띄우기
     //{ } 안에서 && 이후의 render파트는 하나의 큰 <div> 로 묶어줘야 함. 
