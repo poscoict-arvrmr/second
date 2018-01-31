@@ -1,13 +1,13 @@
 // @flow
-import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { GestureActions } from '../actions/gesture';
 import MyFiles from '../components/Myfiles';
 
-export default class FilesPage extends Component {
-  render() {
-    return (
-      <div>
-      <MyFiles />
-      </div>
-    );
-  }
+function mapStateToProps(state) {
+  return state;
 }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(GestureActions, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MyFiles);

@@ -1,15 +1,13 @@
 // @flow
-import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { GestureActions } from '../actions/gesture';
 import Settings from '../components/Settings';
-import Mymenu from '../components/Mymenu';
 
-
-export default class SettingsPage extends Component {
-  render() {
-    return (
-      <div>
-        <Settings />
-      </div>
-    );
-  }
+function mapStateToProps(state) {
+  return state;
 }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(GestureActions, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

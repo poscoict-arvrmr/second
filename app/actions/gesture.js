@@ -1,4 +1,6 @@
 // @flow
+import {showHome, showLogin} from './defaultChecker'
+
 export const FLICK_UP = 'FLICK_UP';
 export const FLICK_DOWN = 'FLICK_DOWN';
 export const FLICK_LEFT = 'FLICK_LEFT';
@@ -29,9 +31,26 @@ export function flick_right(){
         type : FLICK_RIGHT
     }
 }
-export function tap(){
+export function tap(authed){
     console.log('[gesture.js]','action','tap');
     return {
-        type : TAP
+        type : TAP,
+        authed : authed
     }
 }
+
+const LoginActions = {
+    showHome,
+    showLogin,
+    tap,
+    flick_left,
+    flick_right
+}
+const GestureActions = {
+    tap, 
+    flick_up,
+    flick_down,
+    flick_left,
+    flick_right
+}
+export {LoginActions, GestureActions};

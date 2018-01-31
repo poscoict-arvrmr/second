@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Home from '../components/Home';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { LoginActions } from '../actions/defaultChecker';
+import { LoginActions } from '../actions/gesture';
 
 type Props = {
   authed:boolean,
