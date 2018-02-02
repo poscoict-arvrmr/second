@@ -16,7 +16,7 @@ client.on('message', (topic, message) => {
     case 'gesture/connected':
       return ;
     case 'gesture/state':
-      if(message.toString() === 'tap'){
+      if(message.toString() === 'double tap'){
         console.log('홈 페이지로 이동합니다.')
         firebase.auth().signInWithEmailAndPassword('fairies@poscoict.com', '123456').catch(error => {
 //      firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value).catch(error => {

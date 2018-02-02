@@ -18,7 +18,7 @@ client.on('message', (topic, message) => {
     case 'gesture/connected':
       return ;
     case 'gesture/state':
-      if(message.toString() === 'tap' && !authed){
+      if(message.toString() === 'double tap' && !authed){
         console.log('로그인 페이지로 이동합니다.')
         history.push("/login");
       }else if(authed && message.toString() === 'left'){

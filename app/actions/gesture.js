@@ -32,7 +32,7 @@ export function flick_right(){
     }
 }
 export function tap(authed){
-    console.log('[gesture.js]','action','tap');
+    console.log('[gesture.js]','action','double tap');
     return {
         type : TAP,
         authed : authed

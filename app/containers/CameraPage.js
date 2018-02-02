@@ -6,7 +6,7 @@ import Mymenu from '../components/Mymenu';
 //카메라 액션 추가
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators as camActions } from '../reducers/camera';
+import { camActions } from '../reducers/camera';
 
 //export가 하나밖에 안되서 export default class --> export class
 export class CameraPage extends Component {
