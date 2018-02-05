@@ -8,26 +8,8 @@ import styles from './Mymenu.css';
 import { history } from '../store/configureStore';
 import { pi as cameraAddress, mqtt as mqttBrokerAddress } from '../containers/Root';
 
-const client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'camera' });
+let client = null;
 
-client.on('message', (topic, message) => {
-  console.log('[Mycamera.js]', 'on', 'message', topic, message.toString());
-  switch (topic) {
-    case 'gesture/state':
-      if (message.toString() === 'left') {
-        console.log('파일 페이지로 이동합니다.');
-        history.push('/myfiles');
-      } else if (message.toString() === 'right') {
-        console.log('설정 페이지로 이동합니다.');
-        history.push('/settings');
-      } else {
-        console.log('지원하지 않는 제스쳐입니다.');
-      }
-      return;
-    default:
-      console.log('[Mycamera.js]', 'No handler for topic ', topic);
-  }
-});
 function callbackUnsubscribe(err) {
   console.log('[Mycamera.js]', 'unsubscribe callback', err);
 }
@@ -37,6 +19,28 @@ function callbackSubscribe(err, granted) {
 
 export default class Mycamera extends Component {
   componentWillMount() {
+    if (client===null){
+      console.log('[Mycamera.js]', 'componentWillMount', 'client create');
+      client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'camera' });
+      client.on('message', (topic, message) => {
+        console.log('[Mycamera.js]', 'on', 'message', topic, message.toString());
+        switch (topic) {
+          case 'gesture/state':
+            if (message.toString() === 'left') {
+              console.log('파일 페이지로 이동합니다.');
+              history.push('/myfiles');
+            } else if (message.toString() === 'right') {
+              console.log('설정 페이지로 이동합니다.');
+              history.push('/settings');
+            } else {
+              console.log('지원하지 않는 제스쳐입니다.');
+            }
+            return;
+          default:
+            console.log('[Mycamera.js]', 'No handler for topic ', topic);
+        }
+      });
+    }
     if (!client.connected) {
       console.log('[Mycamera.js]', 'componentWillMount', 'reconnect');
       client.reconnect();
@@ -69,6 +73,7 @@ export default class Mycamera extends Component {
     console.log('[Mycamera.js]', 'componentWillUnmount', 'unsubscribe');
     client.unsubscribe('gesture/state', callbackUnsubscribe);
     client.end();
+    client = null;
   }
 
   // Handle raspberry pi videos and photos actions

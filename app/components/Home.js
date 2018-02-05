@@ -6,30 +6,9 @@ import mqtt from 'mqtt';
 import { history } from '../store/configureStore';
 import { mqtt as mqttBrokerAddress } from '../containers/Root';
 
-const client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'home' });
+let client = null;
 let authed = false;
 
-client.on('message', (topic, message) => {
-  console.log('[Home.js]', 'on', 'message', topic, message.toString(), authed);
-  switch (topic) {
-    case 'gesture/state':
-      if (message.toString() === 'double tap' && !authed) {
-        console.log('로그인 페이지로 이동합니다.');
-        history.push('/login');
-      } else if (authed && message.toString() === 'left') {
-        console.log('설정 페이지로 이동합니다.');
-        history.push('/settings');
-      } else if (authed && message.toString() === 'right') {
-        console.log('파일 페이지로 이동합니다.');
-        history.push('/myfiles');
-      } else {
-        console.log('지원하지 않는 제스쳐입니다.');
-      }
-      return;
-    default:
-      console.log('[Home.js]', 'No handler for topic ', topic);
-  }
-});
 function callbackUnsubscribe(err) {
   console.log('[Home.js]', 'unsubscribe callback', err);
 }
@@ -43,6 +22,31 @@ type Props = {
 export default class Home extends Component<Props> {
   props: Props;
   componentWillMount() {
+    if ( client === null ){
+      console.log('[Home.js]', 'componentWillMount', 'client create');
+      client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'home' });
+      client.on('message', (topic, message) => {
+        console.log('[Home.js]', 'on', 'message', topic, message.toString(), authed);
+        switch (topic) {
+          case 'gesture/state':
+            if (message.toString() === 'double tap' && !authed) {
+              console.log('로그인 페이지로 이동합니다.');
+              history.push('/login');
+            } else if (authed && message.toString() === 'left') {
+              console.log('설정 페이지로 이동합니다.');
+              history.push('/settings');
+            } else if (authed && message.toString() === 'right') {
+              console.log('파일 페이지로 이동합니다.');
+              history.push('/myfiles');
+            } else {
+              console.log('지원하지 않는 제스쳐입니다.');
+            }
+            return;
+          default:
+            console.log('[Home.js]', 'No handler for topic ', topic);
+        }
+      });
+    }
     if (!client.connected) {
       console.log('[Home.js]', 'componentWillMount', 'reconnect');
       client.reconnect();
@@ -70,8 +74,14 @@ export default class Home extends Component<Props> {
       client.reconnect();
     }
   }
+  componentWillUnmount() {
+    console.log('[Settings.js]', 'componentWillUnmount', 'unsubscribe');
+    client.unsubscribe('gesture/state', callbackUnsubscribe);
+    client.end();
+    client = null;
+  }
   render() {
-    console.log('[Home.js]', 'render', this, this.props, client.options, client.connected);
+    console.log('[Home.js]', 'render', this, this.props, client.options, client.connected, client);
     authed = this.props.authed;
     return (
     // login하기 전에는 로딩 아이콘, 한 후에는 사용자 아이콘 띄우기

@@ -6,25 +6,8 @@ import styles from './Mymenu.css';
 import { history } from '../store/configureStore';
 import { mqtt as mqttBrokerAddress } from '../containers/Root';
 
-const client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'login' });
-client.on('message', (topic, message) => {
-  console.log('[Login.js]', 'on', 'message', topic, message.toString());
-  switch (topic) {
-    case 'gesture/state':
-      if (message.toString() === 'double tap') {
-        console.log('홈 페이지로 이동합니다.');
-        firebase.auth().signInWithEmailAndPassword('fairies@poscoict.com', '123456').then(() => history.push('/')).catch(err => {
-          // firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value)
-          console.log('로그인 오류입니다.', err);
-        });
-      } else {
-        console.log('지원하지 않는 제스쳐입니다.');
-      }
-      return;
-    default:
-      console.log('[Login.js]', 'No handler for topic ', topic);
-  }
-});
+let client = null;
+
 function callbackUnsubscribe(err) {
   console.log('[Login.js]', 'unsubscribe callback', err);
 }
@@ -36,11 +19,47 @@ type Props = {};
 export default class Login extends Component<Props> {
   props: Props;
   componentWillMount() {
+    if (client === null){
+      console.log('[Login.js]', 'componentWillMount', 'client create');
+      client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'login' });
+      client.on('message', (topic, message) => {
+        console.log('[Login.js]', 'on', 'message', topic, message.toString());
+        switch (topic) {
+          case 'gesture/state':
+            if (message.toString() === 'double tap') {
+              console.log('홈 페이지로 이동합니다.');
+              firebase.auth().signInWithEmailAndPassword('fairies@poscoict.com', '123456').then(() => history.push('/')).catch(err => {
+                // firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value)
+                console.log('로그인 오류입니다.', err);
+              });
+            } else {
+              console.log('지원하지 않는 제스쳐입니다.');
+            }
+            return;
+          default:
+            console.log('[Login.js]', 'No handler for topic ', topic);
+        }
+      });
+    }
     if (!client.connected) {
       console.log('[Login.js]', 'componentWillMount', 'reconnect');
       client.reconnect();
     }
     console.log('[Login.js]', 'componentWillMount', 'subscribe');
+    client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
+  }
+  componentDidMount() {
+    if (!client.connected) {
+      console.log('[Login.js]', 'componentDidMount', 'reconnect');
+      client.reconnect();
+    }
+  }
+  componentWillUpdate(nextProps, nextState) {
+    if (!client.connected) {
+      console.log('[Login.js]', 'componentWillUpdate', 'reconnect', nextProps, nextProps);
+      client.reconnect();
+    }
+    console.log('[Login.js]', 'componentWillUpdate', 'subscribe');
     client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
   }
   componentDidUpdate() {
@@ -55,6 +74,7 @@ export default class Login extends Component<Props> {
     console.log('[Login.js]', 'componentWillUnmount', 'unsubscribe');
     client.unsubscribe('gesture/state', callbackUnsubscribe);
     client.end();
+    client = null;
   }
   handleSubmit = (e) => {
     e.preventDefault();
