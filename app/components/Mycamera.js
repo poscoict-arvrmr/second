@@ -43,6 +43,7 @@ export default class Mycamera extends Component {
     client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
   }
   componentDidMount() {
+    responsiveVoice.speak('음성명령을 통하여 사진을 찍을 수 있습니다', 'Korean Female');
     if (!client.connected) {
       console.log('[Mycamera.js]', 'componentDidMount', 'reconnect');
       client.reconnect();
@@ -68,36 +69,36 @@ export default class Mycamera extends Component {
     client.end();
   }
 
- //Handle raspberry pi videos and photos actions
+  // Handle raspberry pi videos and photos actions
   handleImageLoaded() {
-    this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cam_pic.php?time=' + new Date().getTime();
+    this.refs.mjpeg_dest.src = `http://192.168.246.244/html/cam_pic.php?time=${new Date().getTime()}`;
   }
 
   handleImageErrored() {
     setTimeout(() => {
-      this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cam_pic.php?time=' + new Date().getTime();
+      this.refs.mjpeg_dest.src = `http://192.168.246.244/html/cam_pic.php?time=${new Date().getTime()}`;
     }, 100);
   }
 
-  handleRecordStart(){
+  handleRecordStart() {
     const isRec = this.props.camera.isRecording;
-    if(!isRec){
+    if (!isRec) {
       this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=ca%201';
       this.props.startRec();
-    }
+    } 
     else {
       console.log("Didn't stop previous recording");
     }
   }
 
-  handleRecordStop(){
+  handleRecordStop() {
     const isRec = this.props.camera.isRecording;
-    if(isRec){
+    if (isRec){
       this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=ca%200';
       this.props.stopRec();
     }
     else {
-      console.log("Didn't start any recording yet")
+      console.log("Didn't start any recording yet");
     }
   }
 
@@ -105,51 +106,37 @@ export default class Mycamera extends Component {
     this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=im';
   }
 
-  handelTimelapseStart() {
-  }
+  // handelTimelapseStart() {
+  // }
 
-  handleMotionDetectionStart() {
-  }
+  // handleMotionDetectionStart() {
+  // }
 
-  handleStopCamera() {
-  }
+  // handleStopCamera() {
+  // }
 
   render() {
-    console.log("-----Mycamera component-------");
+    console.log('-----Mycamera component-------');
     return (
-        <div className={styles.camScreen}>
-            <div>
-              <img
-                ref="mjpeg_dest"
-                onLoad={this.handleImageLoaded.bind(this)}
-                onError={this.handleImageErrored.bind(this)}
-                src="http://192.168.246.244/html/loading.jpg"
-                alt=""
-                height="350px"
-                />
-            </div>
-          <div>
-            <button onClick={this.handleRecordStart.bind(this)} className={styles.camButton}><i className="fa fa-play-circle fa-3x"></i></button>
-            &nbsp;&nbsp;&nbsp;
-            <button onClick={this.handleRecordStop.bind(this)} className={styles.camButton}><i className="fa fa-stop-circle fa-3x"></i></button>
-            &nbsp;&nbsp;&nbsp;
-            <button onClick={this.handleTakePhoto.bind(this)} className={styles.camButton}><i className="fa fa-camera fa-3x"></i></button>
-          </div>
+      <div className={styles.camScreen}>
+        <div>
+          <img
+            ref="mjpeg_dest"
+            onLoad={this.handleImageLoaded.bind(this)}
+            onError={this.handleImageErrored.bind(this)}
+            src="http://192.168.246.244/html/loading.jpg"
+            alt=""
+            height="350px"
+          />
         </div>
+        <div>
+          <button onClick={this.handleRecordStart.bind(this)} className={styles.camButton}><i className="fa fa-play-circle fa-3x" /></button>
+          &nbsp;&nbsp;&nbsp;
+          <button onClick={this.handleRecordStop.bind(this)} className={styles.camButton}><i className="fa fa-stop-circle fa-3x" /></button>
+          &nbsp;&nbsp;&nbsp;
+          <button onClick={this.handleTakePhoto.bind(this)} className={styles.camButton}><i className="fa fa-camera fa-3x" /></button>
+        </div>
+      </div>
     );
   }
-  componentDidMount(){
-    responsiveVoice.speak("음성명령을 통하여 사진을 찍을 수 있습니다", "Korean Female");
-    if(!client.connected){
-      console.log('[Mycamera.js]','componentDidMount','reconnect');
-      client.reconnect();
-    }
-  }
-  componentDidUpdate(prevProps, prevState){
-    if(!client.connected){
-      console.log('[Mycamera.js]','componentDidMount','reconnect',prevProps, prevState);
-      client.reconnect();
-    }
-  }
-
 }
