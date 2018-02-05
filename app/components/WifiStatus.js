@@ -29,7 +29,9 @@ class WifiStatus extends Component<Props> {
             !this.props.checker.status &&
             <i className="fa fa-ban fa-5x" />
           }
-          현재위치 : { this.props.router.location.pathname }, camera : {cameraAddress}, mqtt broker : {mqttBrokerAddress}
+          현재위치 : { this.props.router.location.pathname },
+          camera : {cameraAddress},
+          mqtt broker : {mqttBrokerAddress}
         </div>
         {
           this.props.checker.authed &&

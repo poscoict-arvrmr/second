@@ -19,9 +19,9 @@ function callbackSubscribe(err, granted) {
 
 export default class Mycamera extends Component {
   componentWillMount() {
-    if (client===null){
+    if (client === null) {
       console.log('[Mycamera.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'camera' });
+      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'camera' });
       client.on('message', (topic, message) => {
         console.log('[Mycamera.js]', 'on', 'message', topic, message.toString());
         switch (topic) {
@@ -78,39 +78,37 @@ export default class Mycamera extends Component {
 
   // Handle raspberry pi videos and photos actions
   handleImageLoaded() {
-    this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cam_pic.php?time=' + new Date().getTime();
+    this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cam_pic.php?time=' + new Date().getTime();
   }
 
   handleImageErrored() {
     setTimeout(() => {
-      this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cam_pic.php?time=' + new Date().getTime();
+      this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cam_pic.php?time=' + new Date().getTime();
     }, 100);
   }
 
   handleRecordStart() {
     const isRec = this.props.camera.isRecording;
-    if(!isRec){
-      this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cmd_pipe.php?cmd=ca%201';
+    if (!isRec) {
+      this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cmd_pipe.php?cmd=ca%201';
       this.props.startRec();
-    } 
-    else {
+    } else {
       console.log("Didn't stop previous recording");
     }
   }
 
   handleRecordStop() {
     const isRec = this.props.camera.isRecording;
-    if(isRec){
-      this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cmd_pipe.php?cmd=ca%200';
+    if (isRec) {
+      this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cmd_pipe.php?cmd=ca%200';
       this.props.stopRec();
-    }
-    else {
+    } else {
       console.log("Didn't start any recording yet");
     }
   }
 
   handleTakePhoto() {
-    this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cmd_pipe.php?cmd=im';
+    this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cmd_pipe.php?cmd=im';
   }
 
   // handelTimelapseStart() {
@@ -123,8 +121,8 @@ export default class Mycamera extends Component {
   // }
 
   render() {
-    console.log("-----Mycamera component-------");
-    let imaSrc = 'http://'+cameraAddress+'/html/loading.jpg';
+    console.log('-----Mycamera component-------');
+    let imaSrc = 'http://' + cameraAddress + '/html/loading.jpg';
     return (
       <div className={styles.camScreen}>
         <div>
@@ -138,11 +136,11 @@ export default class Mycamera extends Component {
             />
         </div>
         <div>
-          <button onClick={this.handleRecordStart.bind(this)} className={styles.camButton}><i className="fa fa-play-circle fa-3x"></i></button>
+          <button onClick={this.handleRecordStart.bind(this)} className={styles.camButton}><i className="fa fa-play-circle fa-3x" /></button>
           &nbsp;&nbsp;&nbsp;
-          <button onClick={this.handleRecordStop.bind(this)} className={styles.camButton}><i className="fa fa-stop-circle fa-3x"></i></button>
+          <button onClick={this.handleRecordStop.bind(this)} className={styles.camButton}><i className="fa fa-stop-circle fa-3x" /></button>
           &nbsp;&nbsp;&nbsp;
-          <button onClick={this.handleTakePhoto.bind(this)} className={styles.camButton}><i className="fa fa-camera fa-3x"></i></button>
+          <button onClick={this.handleTakePhoto.bind(this)} className={styles.camButton}><i className="fa fa-camera fa-3x" /></button>
         </div>
       </div>
     );

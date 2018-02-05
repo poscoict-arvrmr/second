@@ -16,9 +16,9 @@ function callbackSubscribe(err, granted) {
 
 export default class MyFiles extends Component {
   componentWillMount() {
-    if (client===null){
+    if (client === null) {
       console.log('[MyFiles.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'files' });
+      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'files' });
       client.on('message', (topic, message) => {
         console.log('[MyFiles.js]', 'on', 'message', topic, message.toString());
         switch (topic) {

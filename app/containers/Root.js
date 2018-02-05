@@ -13,9 +13,9 @@ import SettingsPage from './SettingsPage';
 import WifiStatus from '../components/WifiStatus';
 import Mymenu from '../components/Mymenu';
 
-export let pi = process.env.NODE_ENV==='development' ? process.env.CAMERA : 'localhost';
-export let mqtt = process.env.NODE_ENV==='development' ? process.env.MQTT : 'localhost';
-console.log('찍혀라[Root.js]', pi, mqtt );
+export const pi = process.env.NODE_ENV === 'development' ? process.env.CAMERA : 'localhost';
+export const mqtt = process.env.NODE_ENV === 'development' ? process.env.MQTT : 'localhost';
+console.log('찍혀라[Root.js]', pi, mqtt);
 
 type Props = {
   store: {},

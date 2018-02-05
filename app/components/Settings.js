@@ -16,9 +16,9 @@ function callbackSubscribe(err, granted) {
 
 export default class Settings extends Component {
   componentWillMount() {
-    if (client===null){
+    if (client === null) {
       console.log('[Settings.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'settings' });
+      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'settings' });
       client.on('message', (topic, message) => {
         console.log('[Settings.js]', 'on', 'message', topic, message.toString());
         switch (topic) {

@@ -19,9 +19,9 @@ type Props = {};
 export default class Login extends Component<Props> {
   props: Props;
   componentWillMount() {
-    if (client === null){
+    if (client === null) {
       console.log('[Login.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'login' });
+      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'login' });
       client.on('message', (topic, message) => {
         console.log('[Login.js]', 'on', 'message', topic, message.toString());
         switch (topic) {
