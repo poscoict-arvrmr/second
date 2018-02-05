@@ -2,6 +2,9 @@ https://github.com/chentsulin/electron-react-boilerplate 를 base로 하였습�
 
 https://poscoict-arvrmr.github.io/docs/ 를 참고하세요.
 
+### 라즈베리 파이 주소 CUSTOMIZE 
+app/components/Mycamera.js 에서 라즈베리 파이 주소는 본인 localhost 주소에 맞게 변형해주세요.
+
 ### 스크린 사이즈
 main.dev.js 에서 수정하기.
 1. fullscreen 을 원하면 frame: false, fullscreen:true
