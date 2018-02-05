@@ -6,8 +6,10 @@ import styles from './Mymenu.css';
 // CameraPage에서 mapDispatchToProps로 Camera 컴포넌트랑 props를 바로 연결해줬기 때문에
 // this.props로 액션 access 할 수 있음. 따로 import 할 필요 없음.
 import { history } from '../store/configureStore';
+import { pi as cameraAddress, mqtt as mqttBrokerAddress } from '../containers/Root';
 
-const client = mqtt.connect('mqtt://localhost:1883', { clientId: 'camera' });
+const client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'camera' });
+
 client.on('message', (topic, message) => {
   console.log('[Mycamera.js]', 'on', 'message', topic, message.toString());
   switch (topic) {
@@ -71,19 +73,19 @@ export default class Mycamera extends Component {
 
   // Handle raspberry pi videos and photos actions
   handleImageLoaded() {
-    this.refs.mjpeg_dest.src = `http://192.168.246.244/html/cam_pic.php?time=${new Date().getTime()}`;
+    this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cam_pic.php?time=' + new Date().getTime();
   }
 
   handleImageErrored() {
     setTimeout(() => {
-      this.refs.mjpeg_dest.src = `http://192.168.246.244/html/cam_pic.php?time=${new Date().getTime()}`;
+      this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cam_pic.php?time=' + new Date().getTime();
     }, 100);
   }
 
   handleRecordStart() {
     const isRec = this.props.camera.isRecording;
-    if (!isRec) {
-      this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=ca%201';
+    if(!isRec){
+      this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cmd_pipe.php?cmd=ca%201';
       this.props.startRec();
     } 
     else {
@@ -93,8 +95,8 @@ export default class Mycamera extends Component {
 
   handleRecordStop() {
     const isRec = this.props.camera.isRecording;
-    if (isRec){
-      this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=ca%200';
+    if(isRec){
+      this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cmd_pipe.php?cmd=ca%200';
       this.props.stopRec();
     }
     else {
@@ -103,7 +105,7 @@ export default class Mycamera extends Component {
   }
 
   handleTakePhoto() {
-    this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=im';
+    this.refs.mjpeg_dest.src = 'http://'+cameraAddress+'/html/cmd_pipe.php?cmd=im';
   }
 
   // handelTimelapseStart() {
@@ -116,7 +118,8 @@ export default class Mycamera extends Component {
   // }
 
   render() {
-    console.log('-----Mycamera component-------');
+    console.log("-----Mycamera component-------");
+    let imaSrc = 'http://'+cameraAddress+'/html/loading.jpg';
     return (
       <div className={styles.camScreen}>
         <div>
@@ -124,17 +127,17 @@ export default class Mycamera extends Component {
             ref="mjpeg_dest"
             onLoad={this.handleImageLoaded.bind(this)}
             onError={this.handleImageErrored.bind(this)}
-            src="http://192.168.246.244/html/loading.jpg"
+            src={imaSrc}
             alt=""
             height="350px"
-          />
+            />
         </div>
         <div>
-          <button onClick={this.handleRecordStart.bind(this)} className={styles.camButton}><i className="fa fa-play-circle fa-3x" /></button>
+          <button onClick={this.handleRecordStart.bind(this)} className={styles.camButton}><i className="fa fa-play-circle fa-3x"></i></button>
           &nbsp;&nbsp;&nbsp;
-          <button onClick={this.handleRecordStop.bind(this)} className={styles.camButton}><i className="fa fa-stop-circle fa-3x" /></button>
+          <button onClick={this.handleRecordStop.bind(this)} className={styles.camButton}><i className="fa fa-stop-circle fa-3x"></i></button>
           &nbsp;&nbsp;&nbsp;
-          <button onClick={this.handleTakePhoto.bind(this)} className={styles.camButton}><i className="fa fa-camera fa-3x" /></button>
+          <button onClick={this.handleTakePhoto.bind(this)} className={styles.camButton}><i className="fa fa-camera fa-3x"></i></button>
         </div>
       </div>
     );

@@ -4,8 +4,9 @@ import mqtt from 'mqtt';
 import { firebase } from '../utils/firebase';
 import styles from './Mymenu.css';
 import { history } from '../store/configureStore';
+import { mqtt as mqttBrokerAddress } from '../containers/Root';
 
-const client = mqtt.connect('mqtt://localhost:1883', { clientId: 'login' });
+const client = mqtt.connect('mqtt://'+mqttBrokerAddress+':1883', { clientId: 'login' });
 client.on('message', (topic, message) => {
   console.log('[Login.js]', 'on', 'message', topic, message.toString());
   switch (topic) {
