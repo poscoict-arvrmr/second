@@ -19,13 +19,13 @@ type Props = {
 };
 export default class Root extends Component<Props> {
   props: Props;
-  render(){
-    console.log('[Root.js]','render', this.props);
+  render() {
+    console.log('[Root.js]', 'render', this.props, this.props.store.getState());
     return (
       <Provider store={this.props.store}>
         <ConnectedRouter history={this.props.history}>
           <App>
-            <WifiStatus/>
+            <WifiStatus />
             <Mymenu />
             <Switch>
               <Route path="/myfiles" component={FilesPage} />
@@ -34,7 +34,7 @@ export default class Root extends Component<Props> {
               <Route path="/login" component={LoginPage} />
               <Route path="/" component={HomePage} />
             </Switch>
-          </App>        
+          </App>
         </ConnectedRouter>
       </Provider>
     );

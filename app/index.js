@@ -7,22 +7,22 @@ import './app.global.css';
 import { firebase } from './utils/firebase';
 import { showHome, showLogin, online, offline } from './actions/defaultChecker';
 
-// 
-// store는 createStore()를 호출해서 생성한다. 
-// createStore()의 인자는 3가지가 가능하다. 
-// 
-// # createStore(reducer, [preloadedState], [enhancer]) 
+//
+// store는 createStore()를 호출해서 생성한다.
+// createStore()의 인자는 3가지가 가능하다.
+//
+// # createStore(reducer, [preloadedState], [enhancer])
 //
 // createStore()를 사용하기 위해서는 redux가 필요함. 함수를 가져올때는 import {function_name} 형태의 문법으로.
 // import { createStore } from 'redux';
 // - https://redux.js.org/docs/api/createStore.html
 const store = configureStore();
 window.addEventListener('online', (e) => {
-  console.log('[index.js]','online 입니다.', store.getState().checker);
+  console.log('[index.js]', 'online 입니다.', e, store.getState().checker);
   store.dispatch(online());
 });
 window.addEventListener('offline', (e) => {
-  console.log('[index.js]','offline 입니다.', store.getState().checker);
+  console.log('[index.js]', 'offline 입니다.', e, store.getState().checker);
   store.dispatch(offline());
 });
 // configureStore.dev.js 와 configureStore.prod.js 에서는 첫번재 인자인 reducer를 넘길때 combineReducers() 가 사용함.
@@ -31,20 +31,14 @@ window.addEventListener('offline', (e) => {
 console.log('[index.js]', 'store', store);
 console.log('[index.js]', 'store.getState()', store.getState());
 
-
-
-
-
-
-
-// ReactDOM.render(element, container[, callback]) 형태로 사용함. 
-// AppConainter 를 통해 application을 감싸야 한다. 
-// - http://gaearon.github.io/react-hot-loader/getstarted/ 
-// element는 Babel 를 통해 browser에서 인식 가능한 script로 변환해줘야 한다. 
-// webpack.config.js 에 babel-loader가 있음. 
+// ReactDOM.render(element, container[, callback]) 형태로 사용함.
+// AppConainter 를 통해 application을 감싸야 한다.
+// - http://gaearon.github.io/react-hot-loader/getstarted/
+// element는 Babel 를 통해 browser에서 인식 가능한 script로 변환해줘야 한다.
+// webpack.config.js 에 babel-loader가 있음.
 // presets 으로 react와 env 를 추가해야함. ( .babelrc 파일 참고 )
 //
-// import 문이 다음과 같을 경우 ReactDOM.render(element, container)로 코딩함. 
+// import 문이 다음과 같을 경우 ReactDOM.render(element, container)로 코딩함.
 /*
 import ReactDOM from 'react-dom';
 ReactDOM.render(
@@ -77,12 +71,12 @@ if (module.hot) {
   });
 }
 
-firebase.auth().onAuthStateChanged( (user) => {
-  if(user){
-    console.log('[index.js]','log in');
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log('[index.js]', 'log in');
     store.dispatch(showHome(user));
-  }else{
-    console.log('[index.js]','log out');
+  } else {
+    console.log('[index.js]', 'log out');
     store.dispatch(showLogin());
   }
 });

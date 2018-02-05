@@ -267,7 +267,7 @@ export default merge.smart(baseConfig, {
       console.log('찍혀라[webpack.config.render.dev]', 'START_HOT 환경변수:', process.env.START_HOT);
       if (process.env.START_HOT) {
         console.log('Starting Main Process...');
-        console.log('찍혀라[webpack.config.render.dev]', 'child_process를 생성함.')
+        console.log('찍혀라[webpack.config.render.dev]', 'child_process를 생성함.');
         spawn(
           'npm',
           ['run', 'start-main-dev'],

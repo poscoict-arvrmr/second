@@ -12,13 +12,10 @@
 }
 .topMenu {
   text-align: center;
-
 }
-
 .camButton {
   background-color: Transparent;
-  border: none;
-  
+  border: none; 
 }
 
 .camScreen {

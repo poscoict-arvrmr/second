@@ -4,28 +4,35 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { WifiCheckerActions } from '../actions/defaultChecker';
 import { firebase } from '../utils/firebase';
+import { history } from '../store/configureStore';
 
 type Props = {
 };
 
-export class WifiStatus extends Component<Props> {
+class WifiStatus extends Component<Props> {
   props: Props;
-  singout = (e) =>{
-    console.log('[WifiStatus.js]','singout', this, this.props, this.props.checker);
-    firebase.auth().signOut();
+  singout = (e) => {
+    console.log('[WifiStatus.js]', 'singout', e, this, this.props, this.props.checker);
+    firebase.auth().signOut().then(() => history.push('/')).catch((err) => console.log('[WifiStatus.js]', 'singout', err));
   }
   render() {
-    // icon = status ? "fa fa-wifi fa-5x" : "fa fa-ban fa-5x";
-    console.log('[WifiStatus.js]','render', this, this.props, this.props.checker);
+    console.log('[WifiStatus.js]', 'render', this, this.props, this.props.checker, this.props.checker.state);
     return (
       <div id="wifi-status">
         <div>
-          <i className={this.props.checker.icon}></i>
+          {
+            this.props.checker.status &&
+            <i className="fa fa-wifi fa-5x" />
+          }
+          {
+            !this.props.checker.status &&
+            <i className="fa fa-ban fa-5x" />
+          }
           현재위치 : { this.props.router.location.pathname }
         </div>
         {
           this.props.checker.authed &&
-          <div style={{position:'absolute',top:20+'px',right:0+'px'}}>
+          <div style={{ position: 'absolute', top: '20px', right: '0px' }}>
             <button onClick={this.singout}>logout</button>
           </div>
         }

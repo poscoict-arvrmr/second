@@ -11,4 +11,3 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(LoginActions, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-  

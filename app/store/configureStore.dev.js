@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 import * as defaultActions from '../actions/defaultChecker';
 import * as gestureActions from '../actions/gesture';
-import type{ defaultStateType } from '../reducers/defaultChecker'; 
+import type{ defaultStateType } from '../reducers/defaultChecker';
 
 const history = createHashHistory();
 

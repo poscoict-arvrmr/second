@@ -4,13 +4,13 @@ import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
-import type{ defaultStateType } from '../reducers/defaultChecker'; 
+import type{ defaultStateType } from '../reducers/defaultChecker';
 
 const history = createBrowserHistory();
 const router = routerMiddleware(history);
 const enhancer = applyMiddleware(thunk, router);
 
-function configureStore(initialState ? : defaultStateType) {
+function configureStore(initialState?: defaultStateType) {
   return createStore(rootReducer, initialState, enhancer);
 }
 

@@ -1,5 +1,6 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+import { BrowserWindow } from 'electron';
+// import { app, Menu, shell, BrowserWindow } from 'electron';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -12,40 +13,40 @@ export default class MenuBuilder {
     if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
       this.setupDevelopmentEnvironment();
     }
-/*
-//$$$$$ mainWindow 를 fullscreen 으로 변경했음. [main.dev.js]
-    let template;
+  /*
+  //$$$$$ mainWindow 를 fullscreen 으로 변경했음. [main.dev.js]
+      let template;
 
-    if (process.platform === 'darwin') {
-      template = this.buildDarwinTemplate();
-    } else {
-      template = this.buildDefaultTemplate();
-    }
+      if (process.platform === 'darwin') {
+        template = this.buildDarwinTemplate();
+      } else {
+        template = this.buildDefaultTemplate();
+      }
 
-    const menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
+      const menu = Menu.buildFromTemplate(template);
+      Menu.setApplicationMenu(menu);
 
-    return menu;
-*/    
+      return menu;
+  */
   }
 
   setupDevelopmentEnvironment() {
     this.mainWindow.openDevTools();
-/*    
-//$$$$$ mainWindow 를 fullscreen 으로 변경했음. [main.dev.js]
-    this.mainWindow.webContents.on('context-menu', (e, props) => {
-      const { x, y } = props;
+  /*
+  //$$$$$ mainWindow 를 fullscreen 으로 변경했음. [main.dev.js]
+      this.mainWindow.webContents.on('context-menu', (e, props) => {
+        const { x, y } = props;
 
-      Menu
-        .buildFromTemplate([{
-          label: 'Inspect element',
-          click: () => {
-            this.mainWindow.inspectElement(x, y);
-          }
-        }])
-        .popup(this.mainWindow);
-    });
-*/    
+        Menu
+          .buildFromTemplate([{
+            label: 'Inspect element',
+            click: () => {
+              this.mainWindow.inspectElement(x, y);
+            }
+          }])
+          .popup(this.mainWindow);
+      });
+  */
   }
 
 /*

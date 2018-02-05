@@ -1,32 +1,16 @@
 // @flow
-import React, { Component } from 'react';
-import Home from '../components/Home';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { LoginActions } from '../actions/gesture';
-
-type Props = {
-  authed:boolean,
-  msg:string,
-};
-
-export class HomePage extends Component<Props> {
-  props: Props;
-  render() {
-    console.log('[HomePage.js]','render', this, this.props);
-    return (
-      <Home authed={this.props.authed} msg={this.props.msg}></Home>
-    );
-  }
-}
+import Home from '../components/Home';
 
 function mapStateToProps(state) {
   return {
-    authed:state.checker.authed,
-    msg:state.checker.msg
-  }
+    authed: state.checker.authed,
+    msg: state.checker.msg
+  };
 }
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(LoginActions, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

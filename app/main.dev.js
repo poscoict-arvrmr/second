@@ -62,15 +62,15 @@ app.on('ready', async () => {
   }
   console.log('찍혀라[main.dev]', 'ready 되면 BrowserWindow 생성해야지');
   console.log('찍혀라[main.dev]', __dirname);
-//$$$$$ __dirname 확인.
-//$$$$$ developmennt 일경우 - /home/jinia/Documents/GitHub/electron-react-boilerplate/app
-//$$$$$ production 일경우 - /tmp/.mount_electrVqlwVQ/app/resources/app.asar
+  // $$$$$ __dirname 확인.
+  // $$$$$ developmennt 일경우 - /home/jinia/Documents/GitHub/electron-react-boilerplate/app
+  // $$$$$ production 일경우 - /tmp/.mount_electrVqlwVQ/app/resources/app.asar
 
-  mainWindow = new BrowserWindow({show: false, width: 1024, height: 728});
-/*
-//$$$$$ mainWindow 를 fullscreen 으로 변경했음: frame: false, fullscreen:true
-  mainWindow = new BrowserWindow({ show: false, width: 1024, height: 728 });
-*/
+  mainWindow = new BrowserWindow({ frame: false, fullscreen: true });
+  /*
+  //$$$$$ mainWindow 를 fullscreen 으로 변경했음: frame: false, fullscreen:true
+    mainWindow = new BrowserWindow({ show: false, width: 1024, height: 728 });
+  */
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
