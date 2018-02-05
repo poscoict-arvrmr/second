@@ -15,6 +15,16 @@
 
 }
 
+.camButton {
+  background-color: Transparent;
+  border: none;
+  
+}
+
+.camScreen {
+  text-align: center;
+}
+
 /*
 .backButton {
     position: absolute;

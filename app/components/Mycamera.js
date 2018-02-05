@@ -90,58 +90,25 @@ export default class Mycamera extends Component {
   render() {
     console.log("-----Mycamera component-------");
     return (
-      <Window
-      chrome
-      height="600px"
-      padding="10px"
-      opacity="1"
-      horizontalAlignment="center"
-      verticalAlignment="center"
-      >
-        <View
-          horizontalAlignment="center"
-          verticalAlignment="center"
-          layout="vertical"
-          width="600px"
-          height="800px"
-          padding="10px"
-          
-          >
-
-          <View
-            layout="horizontal"
-            height="100px"
-          >
-            <Link to="/">
-              <i className="fa fa-arrow-left fa-3x" />
-            </Link>
-            &nbsp;
-            <Link to="/images">
-              <i className="fa fa-arrow-right fa-3x" />
-            </Link>
-          </View>
-
-          <View
-            height="380px"
-          >
+        <div className={styles.camScreen}>
             <div>
               <img
                 ref="mjpeg_dest"
                 onLoad={this.handleImageLoaded.bind(this)}
                 onError={this.handleImageErrored.bind(this)}
                 src="http://192.168.246.244/html/loading.jpg"
-                alt=""/>
+                alt=""
+                height="350px"
+                />
             </div>
-          </View>
-          <View>
-            <button onClick={this.handleRecordVideoImage.bind(this)}><i className="fa fa-play-circle fa-5x"></i></button>
-            &nbsp;&nbsp;&nbsp;
-            <button onClick={this.props.stopRec}><i className="fa fa-stop-circle fa-5x"></i></button>
-          </View>
-
-         </View>
-      </Window>
-      
+          <div>
+            <button onClick={this.props.startRec} className={styles.camButton}><i className="fa fa-play-circle fa-3x"></i></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button onClick={this.props.stopRec} className={styles.camButton}><i className="fa fa-stop-circle fa-3x"></i></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button onClick={this.handleRecordImage.bind(this)} className={styles.camButton}><i className="fa fa-camera fa-3x"></i></button>
+          </div>
+        </div>
     );
   }
   componentDidMount(){
