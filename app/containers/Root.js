@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 
@@ -13,27 +13,30 @@ import SettingsPage from './SettingsPage';
 import WifiStatus from '../components/WifiStatus';
 import Mymenu from '../components/Mymenu';
 
-type RootType = {
+type Props = {
   store: {},
   history: {}
 };
-export default function Root({ store, history }: RootType) {
-  console.log('[Root.js]','render', '[store.getState()]', store.getState(), '[history]', history);
-  return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <App>
-          <WifiStatus/>
-          <Mymenu />
-          <Switch>
-            <Route path="/myfiles" component={FilesPage} />
-            <Route path="/mycamera" component={CameraPage} />
-            <Route path="/settings" component={SettingsPage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/" component={HomePage} />
-          </Switch>
-        </App>        
-      </ConnectedRouter>
-    </Provider>
-  );
+export default class Root extends Component<Props> {
+  props: Props;
+  render(){
+    console.log('[Root.js]','render', this.props);
+    return (
+      <Provider store={this.props.store}>
+        <ConnectedRouter history={this.props.history}>
+          <App>
+            <WifiStatus/>
+            <Mymenu />
+            <Switch>
+              <Route path="/myfiles" component={FilesPage} />
+              <Route path="/mycamera" component={CameraPage} />
+              <Route path="/settings" component={SettingsPage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/" component={HomePage} />
+            </Switch>
+          </App>        
+        </ConnectedRouter>
+      </Provider>
+    );
+  }
 }
