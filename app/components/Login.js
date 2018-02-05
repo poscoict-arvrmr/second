@@ -18,11 +18,12 @@ client.on('message', (topic, message) => {
     case 'gesture/state':
       if(message.toString() === 'double tap'){
         console.log('홈 페이지로 이동합니다.')
-        firebase.auth().signInWithEmailAndPassword('fairies@poscoict.com', '123456').catch(error => {
+        firebase.auth().signInWithEmailAndPassword('fairies@poscoict.com', '123456').then(
+          () => history.push("/")
+        ).catch(error => {
 //      firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value).catch(error => {
           this.setState({loginMessage: 'Invalid username/password.'})
         })
-        history.push("/");
       }else {
         console.log('지원하지 않는 제스쳐입니다.')
       }
@@ -70,7 +71,9 @@ export default class Login extends Component<Props> {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value).catch(error => {
+    firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value).then(
+      () => history.push("/")
+    ).catch(error => {
       this.setState({loginMessage: 'Invalid username/password.'})
     })
   }
