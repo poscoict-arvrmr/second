@@ -67,6 +67,8 @@ export default class Mycamera extends Component {
     client.unsubscribe('gesture/state', callbackUnsubscribe);
     client.end();
   }
+
+ //Handle raspberry pi videos and photos actions
   handleImageLoaded() {
     this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cam_pic.php?time=' + new Date().getTime();
   }
@@ -77,10 +79,29 @@ export default class Mycamera extends Component {
     }, 100);
   }
 
-  handleRecordVideoImage() {
+  handleRecordStart(){
+    const isRec = this.props.camera.isRecording;
+    if(!isRec){
+      this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=ca%201';
+      this.props.startRec();
+    }
+    else {
+      console.log("Didn't stop previous recording");
+    }
   }
 
-  handleRecordImage() {
+  handleRecordStop(){
+    const isRec = this.props.camera.isRecording;
+    if(isRec){
+      this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=ca%200';
+      this.props.stopRec();
+    }
+    else {
+      console.log("Didn't start any recording yet")
+    }
+  }
+
+  handleTakePhoto() {
     this.refs.mjpeg_dest.src = 'http://192.168.246.244/html/cmd_pipe.php?cmd=im';
   }
 
@@ -92,44 +113,43 @@ export default class Mycamera extends Component {
 
   handleStopCamera() {
   }
-  render() {
-    console.log('-----Mycamera component-------');
-    return (
-      <div className={styles.camScreen}>
-        <div>
-          <img
-            ref="mjpeg_dest"
-            onLoad={this.handleImageLoaded.bind(this)}
-            onError={this.handleImageErrored.bind(this)}
-            src="http://192.168.246.244/html/loading.jpg"
-            alt=""
-            height="350px"
-          />
-        </div>
-        <div>
-          <button onClick={this.props.startRec} className={styles.camButton}>
-            <i className="fa fa-play-circle fa-3x" />
-          </button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button onClick={this.props.stopRec} className={styles.camButton}>
-            <i className="fa fa-stop-circle fa-3x" />
-          </button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button onClick={this.handleRecordImage.bind(this)} className={styles.camButton}>
-            <i className="fa fa-camera fa-3x" />
-          </button>
-        </div>
-      </div>
 
+  render() {
+    console.log("-----Mycamera component-------");
+    return (
+        <div className={styles.camScreen}>
+            <div>
+              <img
+                ref="mjpeg_dest"
+                onLoad={this.handleImageLoaded.bind(this)}
+                onError={this.handleImageErrored.bind(this)}
+                src="http://192.168.246.244/html/loading.jpg"
+                alt=""
+                height="350px"
+                />
+            </div>
+          <div>
+            <button onClick={this.handleRecordStart.bind(this)} className={styles.camButton}><i className="fa fa-play-circle fa-3x"></i></button>
+            &nbsp;&nbsp;&nbsp;
+            <button onClick={this.handleRecordStop.bind(this)} className={styles.camButton}><i className="fa fa-stop-circle fa-3x"></i></button>
+            &nbsp;&nbsp;&nbsp;
+            <button onClick={this.handleTakePhoto.bind(this)} className={styles.camButton}><i className="fa fa-camera fa-3x"></i></button>
+          </div>
+        </div>
     );
   }
+  componentDidMount(){
+    responsiveVoice.speak("음성명령을 통하여 사진을 찍을 수 있습니다", "Korean Female");
+    if(!client.connected){
+      console.log('[Mycamera.js]','componentDidMount','reconnect');
+      client.reconnect();
+    }
+  }
+  componentDidUpdate(prevProps, prevState){
+    if(!client.connected){
+      console.log('[Mycamera.js]','componentDidMount','reconnect',prevProps, prevState);
+      client.reconnect();
+    }
+  }
+
 }
-/**
-      <div className={styles.content}>
-        <p>Take a Photo</p>
-        <p>Record a Video</p>
-        <button onClick={this.props.startRec}>Start Recording</button>
-        <button onClick={this.props.stopRec}>Stop Recording</button>
-        <p>Motion Capture</p>
-      </div>
-*/
