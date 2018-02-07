@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import mqtt from 'mqtt';
-import styles from './Mymenu.css';
+// import styles from './Mymenu.css';
 import { history } from '../store/configureStore';
 import { mqtt as mqttBrokerAddress } from '../containers/Root';
 
@@ -18,7 +18,7 @@ export default class MyFiles extends Component {
   componentWillMount() {
     if (client === null) {
       console.log('[MyFiles.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'files' });
+      client = mqtt.connect(`mqtt://${mqttBrokerAddress}:1883`, { clientId: 'files' });
       client.on('message', (topic, message) => {
         console.log('[MyFiles.js]', 'on', 'message', topic, message.toString());
         switch (topic) {
@@ -53,7 +53,7 @@ export default class MyFiles extends Component {
   }
   componentWillUpdate(nextProps, nextState) {
     if (!client.connected) {
-      console.log('[MyFiles.js]', 'componentWillUpdate', 'reconnect', nextProps, nextProps);
+      console.log('[MyFiles.js]', 'componentWillUpdate', 'reconnect', nextProps, nextState);
       client.reconnect();
     }
     console.log('[MyFiles.js]', 'componentWillUpdate', 'subscribe');
@@ -61,7 +61,7 @@ export default class MyFiles extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (!client.connected) {
-      console.log('[MyFiles.js]', 'componentDidMount', 'reconnect', prevProps, prevState);
+      console.log('[MyFiles.js]', 'componentDidUpdate', 'reconnect', prevProps, prevState);
       client.reconnect();
     }
   }
@@ -73,7 +73,7 @@ export default class MyFiles extends Component {
   }
   render() {
     return (
-      <div className={styles.content}>
+      <div id="files" className="child">
         <p>Photos</p>
         <p>Videos</p>
         <p>Documents</p>

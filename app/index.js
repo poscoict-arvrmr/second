@@ -20,10 +20,12 @@ const store = configureStore();
 window.addEventListener('online', (e) => {
   console.log('[index.js]', 'online 입니다.', e, store.getState().checker);
   store.dispatch(online());
+  responsiveVoice.speak('온라인입니다.', 'Korean Female');
 });
 window.addEventListener('offline', (e) => {
   console.log('[index.js]', 'offline 입니다.', e, store.getState().checker);
   store.dispatch(offline());
+  responsiveVoice.speak('오프라인입니다.', 'Korean Female');
 });
 // configureStore.dev.js 와 configureStore.prod.js 에서는 첫번재 인자인 reducer를 넘길때 combineReducers() 가 사용함.
 // - https://redux.js.org/docs/api/combineReducers.html

@@ -268,6 +268,14 @@ export default merge.smart(baseConfig, {
       if (process.env.START_HOT) {
         console.log('Starting Main Process...');
         console.log('찍혀라[webpack.config.render.dev]', 'child_process를 생성함.');
+        /*
+        spawn(
+          'mosca',
+          ['-v', '|', 'pino'],
+          { stdio: 'ignore', detached: true }
+        ).unref();
+        console.log('mosca spawn');
+        */
         spawn(
           'npm',
           ['run', 'start-main-dev'],

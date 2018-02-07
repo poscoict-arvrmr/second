@@ -21,7 +21,7 @@ export default class Mycamera extends Component {
   componentWillMount() {
     if (client === null) {
       console.log('[Mycamera.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'camera' });
+      client = mqtt.connect(`mqtt://${mqttBrokerAddress}:1883`, { clientId: 'camera' });
       client.on('message', (topic, message) => {
         console.log('[Mycamera.js]', 'on', 'message', topic, message.toString());
         switch (topic) {
@@ -57,7 +57,7 @@ export default class Mycamera extends Component {
   }
   componentWillUpdate(nextProps, nextState) {
     if (!client.connected) {
-      console.log('[Mycamera.js]', 'componentWillUpdate', 'reconnect', nextProps, nextProps);
+      console.log('[Mycamera.js]', 'componentWillUpdate', 'reconnect', nextProps, nextState);
       client.reconnect();
     }
     console.log('[Mycamera.js]', 'componentWillUpdate', 'subscribe');
@@ -65,7 +65,7 @@ export default class Mycamera extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (!client.connected) {
-      console.log('[Mycamera.js]', 'componentDidMount', 'reconnect', prevProps, prevState);
+      console.log('[Mycamera.js]', 'componentDidUpdate', 'reconnect', prevProps, prevState);
       client.reconnect();
     }
   }
@@ -78,19 +78,19 @@ export default class Mycamera extends Component {
 
   // Handle raspberry pi videos and photos actions
   handleImageLoaded() {
-    this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cam_pic.php?time=' + new Date().getTime();
+    this.refs.mjpeg_dest.src = `http://${cameraAddress}/html/cam_pic.php?time=${new Date().getTime()}`;
   }
 
   handleImageErrored() {
     setTimeout(() => {
-      this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cam_pic.php?time=' + new Date().getTime();
+      this.refs.mjpeg_dest.src = `http://${cameraAddress}/html/cam_pic.php?time=${new Date().getTime()}`;
     }, 100);
   }
 
   handleRecordStart() {
     const isRec = this.props.camera.isRecording;
     if (!isRec) {
-      this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cmd_pipe.php?cmd=ca%201';
+      this.refs.mjpeg_dest.src = `http://${cameraAddress}/html/cam_pic.php?cmd=ca 1`;
       this.props.startRec();
     } else {
       console.log("Didn't stop previous recording");
@@ -100,7 +100,7 @@ export default class Mycamera extends Component {
   handleRecordStop() {
     const isRec = this.props.camera.isRecording;
     if (isRec) {
-      this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cmd_pipe.php?cmd=ca%200';
+      this.refs.mjpeg_dest.src = `http://${cameraAddress}/html/cam_pic.php?cmd=ca 0`;
       this.props.stopRec();
     } else {
       console.log("Didn't start any recording yet");
@@ -108,7 +108,7 @@ export default class Mycamera extends Component {
   }
 
   handleTakePhoto() {
-    this.refs.mjpeg_dest.src = 'http://' + cameraAddress + '/html/cmd_pipe.php?cmd=im';
+    this.refs.mjpeg_dest.src = `http://${cameraAddress}/html/cam_pic.php?cmd=im`;
   }
 
   // handelTimelapseStart() {
@@ -122,9 +122,9 @@ export default class Mycamera extends Component {
 
   render() {
     console.log('-----Mycamera component-------');
-    let imaSrc = 'http://' + cameraAddress + '/html/loading.jpg';
+    const imaSrc = `http://${cameraAddress}/html/loading.jpg`;
     return (
-      <div className={styles.camScreen}>
+      <div id="camera" className="child" className={styles.camScreen}>
         <div>
           <img
             ref="mjpeg_dest"
@@ -133,7 +133,7 @@ export default class Mycamera extends Component {
             src={imaSrc}
             alt=""
             height="350px"
-            />
+          />
         </div>
         <div>
           <button onClick={this.handleRecordStart.bind(this)} className={styles.camButton}><i className="fa fa-play-circle fa-3x" /></button>

@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import mqtt from 'mqtt';
-import styles from './Mymenu.css';
+// import styles from './Mymenu.css';
 import { history } from '../store/configureStore';
 import { mqtt as mqttBrokerAddress } from '../containers/Root';
 
@@ -18,7 +18,7 @@ export default class Settings extends Component {
   componentWillMount() {
     if (client === null) {
       console.log('[Settings.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'settings' });
+      client = mqtt.connect(`mqtt://${mqttBrokerAddress}:1883`, { clientId: 'settings' });
       client.on('message', (topic, message) => {
         console.log('[Settings.js]', 'on', 'message', topic, message.toString());
         switch (topic) {
@@ -53,7 +53,7 @@ export default class Settings extends Component {
   }
   componentWillUpdate(nextProps, nextState) {
     if (!client.connected) {
-      console.log('[Settings.js]', 'componentWillUpdate', 'reconnect', nextProps, nextProps);
+      console.log('[Settings.js]', 'componentWillUpdate', 'reconnect', nextProps, nextState);
       client.reconnect();
     }
     console.log('[Settings.js]', 'componentWillUpdate', 'subscribe');
@@ -61,7 +61,7 @@ export default class Settings extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (!client.connected) {
-      console.log('[Settings.js]', 'componentDidMount', 'reconnect', prevProps, prevState);
+      console.log('[Settings.js]', 'componentDidUpdate', 'reconnect', prevProps, prevState);
       client.reconnect();
     }
   }
@@ -72,7 +72,7 @@ export default class Settings extends Component {
   }
   render() {
     return (
-      <div className={styles.content}>
+      <div id="settings" className="child">
         <p>Account</p>
         <p>Wi-fi</p>
         <p>Report</p>

@@ -2,7 +2,6 @@ import { ONLINE_STATUS, OFFLINE_STATUS, LOGIN_OK, LOGIN_NEEDED } from '../action
 
 export type defaultStateType = {
   status: boolean,
-  icon: string,
   authed: boolean,
   msg: string
 };

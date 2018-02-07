@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
+import { Store, History } from 'redux';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-
 import { Switch, Route } from 'react-router';
 import App from './App';
 import HomePage from './HomePage';
@@ -18,8 +18,8 @@ export const mqtt = process.env.NODE_ENV === 'development' ? process.env.MQTT : 
 console.log('찍혀라[Root.js]', pi, mqtt);
 
 type Props = {
-  store: {},
-  history: {}
+  store: Store,
+  history: History
 };
 export default class Root extends Component<Props> {
   props: Props;

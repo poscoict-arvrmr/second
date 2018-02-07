@@ -16,6 +16,8 @@ function callbackSubscribe(err, granted) {
 }
 
 type Props = {
+  authed: boolean,
+  msg: string
 };
 
 export default class Home extends Component<Props> {
@@ -23,7 +25,7 @@ export default class Home extends Component<Props> {
   componentWillMount() {
     if (client === null) {
       console.log('[Home.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'home' });
+      client = mqtt.connect(`mqtt://${mqttBrokerAddress}:1883`, { clientId: 'home' });
       client.on('message', (topic, message) => {
         console.log('[Home.js]', 'on', 'message', topic, message.toString(), this.props.authed);
         switch (topic) {
@@ -61,7 +63,7 @@ export default class Home extends Component<Props> {
   }
   componentWillUpdate(nextProps, nextState) {
     if (!client.connected) {
-      console.log('[Home.js]', 'componentWillUpdate', 'reconnect', nextProps, nextProps);
+      console.log('[Home.js]', 'componentWillUpdate', 'reconnect', nextProps, nextState);
       client.reconnect();
     }
     console.log('[Home.js]', 'componentWillUpdate', 'subscribe');
@@ -69,7 +71,7 @@ export default class Home extends Component<Props> {
   }
   componentDidUpdate(prevProps, prevState) {
     if (!client.connected) {
-      console.log('[Home.js]', 'componentDidMount', 'reconnect', prevProps, prevState);
+      console.log('[Home.js]', 'componentDidUpdate', 'reconnect', prevProps, prevState);
       client.reconnect();
     }
   }
@@ -84,14 +86,14 @@ export default class Home extends Component<Props> {
     return (
     // login하기 전에는 로딩 아이콘, 한 후에는 사용자 아이콘 띄우기
     // {} 안에서 && 이후의 render파트는 하나의 큰 <div> 로 묶어줘야 함.
-      <div id="home" style={{ textAlign: 'center' }}>
+      <div id="home" className="child" style={{ textAlign: 'center' }}>
         {
           this.props.authed &&
           <div>
-            <div style={{ fontSize: '2em', marginTop: '1em' }}>
+            <div style={{ fontSize: '2em', marginTop: '0.5em' }}>
               <i className="fa fa-user-circle fa-5x" />
             </div>
-            <div style={{ fontSize: '4em', marginTop: '0.5em' }}>
+            <div style={{ marginTop: '0.5em' }}>
               {this.props.msg}
             </div>
             <Link to="/">
@@ -104,10 +106,10 @@ export default class Home extends Component<Props> {
         {
           !this.props.authed &&
           <div>
-            <div style={{ fontSize: '2em', marginTop: '1em' }}>
+            <div style={{ fontSize: '2em', marginTop: '0.5em' }}>
               <i className="fa fa-spinner fa-pulse fa-5x" />
             </div>
-            <div style={{ fontSize: '4em', marginTop: '0.5em' }}>
+            <div style={{ marginTop: '0.5em' }}>
               {this.props.msg}
             </div>
             <Link to="/login">

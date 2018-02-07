@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import mqtt from 'mqtt';
 import { firebase } from '../utils/firebase';
-import styles from './Mymenu.css';
+// import styles from './Mymenu.css';
 import { history } from '../store/configureStore';
 import { mqtt as mqttBrokerAddress } from '../containers/Root';
 
@@ -21,7 +21,7 @@ export default class Login extends Component<Props> {
   componentWillMount() {
     if (client === null) {
       console.log('[Login.js]', 'componentWillMount', 'client create');
-      client = mqtt.connect('mqtt://' + mqttBrokerAddress + ':1883', { clientId: 'login' });
+      client = mqtt.connect(`mqtt://${mqttBrokerAddress}:1883`, { clientId: 'login' });
       client.on('message', (topic, message) => {
         console.log('[Login.js]', 'on', 'message', topic, message.toString());
         switch (topic) {
@@ -56,15 +56,15 @@ export default class Login extends Component<Props> {
   }
   componentWillUpdate(nextProps, nextState) {
     if (!client.connected) {
-      console.log('[Login.js]', 'componentWillUpdate', 'reconnect', nextProps, nextProps);
+      console.log('[Login.js]', 'componentWillUpdate', 'reconnect', nextProps, nextState);
       client.reconnect();
     }
     console.log('[Login.js]', 'componentWillUpdate', 'subscribe');
     client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     if (!client.connected) {
-      console.log('[Login.js]', 'componentDidUpdate', 'reconnect');
+      console.log('[Login.js]', 'componentDidUpdate', 'reconnect', prevProps, prevState);
       client.reconnect();
     }
     console.log('[Login.js]', 'componentDidUpdate', 'subscribe');
@@ -85,18 +85,19 @@ export default class Login extends Component<Props> {
   render() {
     console.log('[Login.js]', 'render', this, this.props, client.options, client.connected);
     return (
-      <div className={styles.login}>
-        <h1> Log-in </h1>
+      <div id="login" className="child" style={{ clear: 'both', textAlign: 'center' }}>
         <form onSubmit={this.handleSubmit}>
-          <div className={styles.login}>
-            <label>ID &nbsp;&nbsp;&nbsp;</label>
-            <input ref={(email) => this.email = email} placeholder="Email" />
+          <div style={{ margin: '0.1em' }}>
+            <label style={{ verticalAlign: 'middle' }}>ID : </label>
+            <input style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} ref={(email) => this.email = email} placeholder="Email" />
           </div>
-          <div className={styles.login}>
-            <label>PW &nbsp;&nbsp;</label>
-            <input type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
+          <div style={{ margin: '0.1em' }}>
+            <label style={{ verticalAlign: 'middle' }}>PW : </label>
+            <input style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
           </div>
-          <button type="submit">Log-in</button>
+          <div style={{ margin: '0.1em' }}>
+            <button style={{ fontSize: '1em' }} type="submit">Log-in</button>
+          </div>
         </form>
       </div>
     );
