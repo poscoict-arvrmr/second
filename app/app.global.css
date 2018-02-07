@@ -50,7 +50,8 @@ a:hover {
     font-size: 1em;
   }
   #app .child{
-    font-size: 1em;
+    font-size: 2em;
+    text-align: center;
   }
   #wifi-status {
     font-size: 1em;
@@ -65,7 +66,8 @@ a:hover {
     font-size: 1em;
   }
   #app .child{
-    font-size: 2em;
+    font-size: 3em;
+    text-align: center;
   }
   #wifi-status {
     font-size: 2em;
@@ -80,7 +82,8 @@ a:hover {
     font-size: 1em;
   }
   #app .child{
-    font-size: 3em;
+    font-size: 4em;
+    text-align: center;
   }
   #wifi-status {
     font-size: 3em;

@@ -15,32 +15,25 @@ export class MyMenu extends Component {
   props: Props;
   render() {
     return (
-      <div id="menu" style={{ float: 'right' }}>
+      <div id="menu" style={{ position: 'absolute', bottom: '0.5em' }}>
         {
           !!this.props.checker.authed &&
-          <li>
-            <ul>
-              <Link to="/">
-                <i className="fa fa-home fa-2x" />
-              </Link>
-            </ul>
-            <ul>
-              <Link to="/myfiles">
-                <i className="fa fa-file fa-2x" />
-              </Link>
-            </ul>
-            <ul>
-              <Link to="/mycamera">
-                <i className="fa fa-camera fa-2x" />
-              </Link>
-            </ul>
-            <ul>
-              <Link to="/settings">
-                <i className="fa fa-cog fa-2x" />
-              </Link>
-            </ul>
-          </li>
+          <div style={{ float: 'right' }}>
+            <Link to="/">
+              <button style={{ marginRight: '0.2em' }} className="fa fa-home" />
+            </Link>
+            <Link to="/myfiles">
+              <button style={{ marginRight: '0.2em' }} className="fa fa-files-o" />
+            </Link>
+            <Link to="/mycamera">
+              <button style={{ marginRight: '0.2em' }} className="fa fa-camera" />
+            </Link>
+            <Link to="/settings">
+              <button style={{ marginRight: '0.2em' }} className="fa fa-cog" />
+            </Link>
+          </div>
         }
+        <div style={{ clear: 'both' }} />
       </div>
     );
   }

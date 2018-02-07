@@ -30,7 +30,6 @@ export default class Root extends Component<Props> {
         <ConnectedRouter history={this.props.history}>
           <App>
             <WifiStatus />
-            <Mymenu />
             <Switch>
               <Route path="/myfiles" component={FilesPage} />
               <Route path="/mycamera" component={CameraPage} />
@@ -38,6 +37,7 @@ export default class Root extends Component<Props> {
               <Route path="/login" component={LoginPage} />
               <Route path="/" component={HomePage} />
             </Switch>
+            <Mymenu />
           </App>
         </ConnectedRouter>
       </Provider>

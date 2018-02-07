@@ -90,33 +90,26 @@ export default class Home extends Component<Props> {
         {
           this.props.authed &&
           <div>
-            <div style={{ fontSize: '2em', marginTop: '0.5em' }}>
+            <div style={{ marginTop: '0.5em' }}>
               <i className="fa fa-user-circle fa-5x" />
             </div>
             <div style={{ marginTop: '0.5em' }}>
               {this.props.msg}
             </div>
-            <Link to="/">
-              <Button color="gray" onClick={() => console.log('Clicked!')} size="30" paddingLeft="20px" paddingRight="20px" margin="20px">
-                Start
-              </Button>
-            </Link>
           </div>
         }
         {
           !this.props.authed &&
           <div>
-            <div style={{ fontSize: '2em', marginTop: '0.5em' }}>
+            <div style={{ marginTop: '0.5em' }}>
               <i className="fa fa-spinner fa-pulse fa-5x" />
             </div>
             <div style={{ marginTop: '0.5em' }}>
               {this.props.msg}
+              <Link to="/login">
+                <button>Log in</button>
+              </Link>
             </div>
-            <Link to="/login">
-              <Button color="gray" size="30" paddingLeft="20px" paddingRight="20px" margin="20px">
-                Log in
-              </Button>
-            </Link>
           </div>
         }
       </div>
