@@ -24,9 +24,24 @@ export default class MyFiles extends Component {
         switch (topic) {
           case 'gesture/state':
             if (message.toString() === 'left') {
+              window.responsiveVoice.speak('시작 페이지로 이동합니다.', 'Korean Female');
               console.log('시작 페이지로 이동합니다.');
               history.push('/');
             } else if (message.toString() === 'right') {
+              window.responsiveVoice.speak('카메라 페이지로 이동합니다.', 'Korean Female');
+              console.log('카메라 페이지로 이동합니다.');
+              history.push('/mycamera');
+            } else {
+              console.log('지원하지 않는 제스쳐입니다.');
+            }
+            return;
+          case 'voice/command':
+            if (message.toString() === '이전 메뉴로') {
+              window.responsiveVoice.speak('시작 페이지로 이동합니다.', 'Korean Female');
+              console.log('시작 페이지로 이동합니다.');
+              history.push('/');
+            } else if (message.toString() === '다음 메뉴로') {
+              window.responsiveVoice.speak('카메라 페이지로 이동합니다.', 'Korean Female');
               console.log('카메라 페이지로 이동합니다.');
               history.push('/mycamera');
             } else {
@@ -44,6 +59,7 @@ export default class MyFiles extends Component {
     }
     console.log('[MyFiles.js]', 'componentWillMount', 'subscribe');
     client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
+    client.subscribe('voice/command', { qos: 0 }, callbackSubscribe);
   }
   componentDidMount() {
     if (!client.connected) {
@@ -58,6 +74,7 @@ export default class MyFiles extends Component {
     }
     console.log('[MyFiles.js]', 'componentWillUpdate', 'subscribe');
     client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
+    client.subscribe('voice/command', { qos: 0 }, callbackSubscribe);
   }
   componentDidUpdate(prevProps, prevState) {
     if (!client.connected) {
@@ -68,15 +85,21 @@ export default class MyFiles extends Component {
   componentWillUnmount() {
     console.log('[MyFiles.js]', 'componentWillUnmount', 'unsubscribe');
     client.unsubscribe('gesture/state', callbackUnsubscribe);
+    client.unsubscribe('voice/command', callbackUnsubscribe);
     client.end();
     client = null;
   }
   render() {
     return (
       <div id="files" className="child">
-        <p>Photos</p>
-        <p>Videos</p>
-        <p>Documents</p>
+        <div style={{ marginTop: '0.5em' }}>
+          <i className="fa fa-files-o fa-5x" />
+        </div>
+        <div style={{ position: 'absolute', right: '1em', top: '0em' }}>
+          <p>Photos</p>
+          <p>Videos</p>
+          <p>Documents</p>
+        </div>
       </div>
     );
   }

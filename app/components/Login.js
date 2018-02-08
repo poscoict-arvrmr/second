@@ -27,9 +27,26 @@ export default class Login extends Component<Props> {
         switch (topic) {
           case 'gesture/state':
             if (message.toString() === 'double tap') {
-              console.log('홈 페이지로 이동합니다.');
-              firebase.auth().signInWithEmailAndPassword('fairies@poscoict.com', '123456').then(() => history.push('/')).catch(err => {
+              firebase.auth().signInWithEmailAndPassword('fairies@poscoict.com', '123456').then(() => {
+                console.log('홈 페이지로 이동합니다.');
+                history.push('/');
+                return 0;
+              }).catch(err => {
                 // firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value)
+                console.log('로그인 오류입니다.', err);
+              });
+            } else {
+              console.log('지원하지 않는 제스쳐입니다.');
+            }
+            return;
+          case 'voice/command':
+            if (message.toString() === '로그인') {
+              firebase.auth().signInWithEmailAndPassword('fairies@poscoict.com', '123456').then(() => {
+                console.log('홈 페이지로 이동합니다.');
+                history.push('/');
+                return 0;
+              }).catch(err => {
+                window.responsiveVoice.speak('로그인 오류입니다.', 'Korean Female');
                 console.log('로그인 오류입니다.', err);
               });
             } else {
@@ -47,6 +64,7 @@ export default class Login extends Component<Props> {
     }
     console.log('[Login.js]', 'componentWillMount', 'subscribe');
     client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
+    client.subscribe('voice/command', { qos: 0 }, callbackSubscribe);
   }
   componentDidMount() {
     if (!client.connected) {
@@ -61,6 +79,7 @@ export default class Login extends Component<Props> {
     }
     console.log('[Login.js]', 'componentWillUpdate', 'subscribe');
     client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
+    client.subscribe('voice/command', { qos: 0 }, callbackSubscribe);
   }
   componentDidUpdate(prevProps, prevState) {
     if (!client.connected) {
@@ -68,17 +87,21 @@ export default class Login extends Component<Props> {
       client.reconnect();
     }
     console.log('[Login.js]', 'componentDidUpdate', 'subscribe');
-    client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
   }
   componentWillUnmount() {
     console.log('[Login.js]', 'componentWillUnmount', 'unsubscribe');
     client.unsubscribe('gesture/state', callbackUnsubscribe);
+    client.unsubscribe('voice/command', callbackUnsubscribe);
     client.end();
     client = null;
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value).then(() => history.push('/')).catch(error => {
+    firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value).then(() => {
+      console.log('홈 페이지로 이동합니다.');
+      history.push('/');
+      return 0;
+    }).catch(error => {
       console.log('로그인 오류입니다.', error);
     });
   }
