@@ -66,9 +66,13 @@ app.on('ready', async () => {
   // $$$$$ developmennt 일경우 - /home/jinia/Documents/GitHub/electron-react-boilerplate/app
   // $$$$$ production 일경우 - /tmp/.mount_electrVqlwVQ/app/resources/app.asar
 
-  // mainWindow = new BrowserWindow({ frame: false, width: 656, height: 352 });
-  mainWindow = new BrowserWindow({ frame: false, width: 1184, height: 560 });
-  // mainWindow = new BrowserWindow({ frame: false, fullscreen: true });
+  if (process.env.NODE_ENV === 'development') {
+    // mainWindow = new BrowserWindow({ frame: false, width: 656, height: 416 });
+    mainWindow = new BrowserWindow({ frame: false, width: 1184, height: 624 });
+  } else {
+    mainWindow = new BrowserWindow({ frame: false, fullscreen: true });
+  }
+
   /*
   //$$$$$ mainWindow 를 fullscreen 으로 변경했음: frame: false, fullscreen:true
     mainWindow = new BrowserWindow({ show: false, width: 1024, height: 728 });
