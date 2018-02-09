@@ -151,23 +151,26 @@ export default class Mycamera extends Component {
             onError={this.handleImageOnError}
             src={imaSrc}
             alt=""
-            width="65%"
+            width="75%"
           />
         </div>
-        <div style={{ position: 'absolute', right: '1em', top: '0em' }}>
-          <p>비디오</p>
-          <p>
-            <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-play-circle fa-2x" onClick={this.handleRecordStart} />
-          </p>
-          <p>
-            <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-stop-circle fa-2x" onClick={this.handleRecordStop} />
-          </p>
+        <div style={{ position: 'absolute', right: '0em', top: '0em' }}>
+          <div sytle={{ marginRight: '0.5em', textAlign: 'right' }}>
+            <p>비디오</p>
+            <p>
+              <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-play-circle fa-2x" onClick={this.handleRecordStart} />
+              <br />
+              <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-stop-circle fa-2x" onClick={this.handleRecordStop} />
+            </p>
+          </div>
         </div>
-        <div style={{ position: 'absolute', left: '1em', top: '0em' }}>
-          <p>사진</p>
-          <p>
-            <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-dot-circle-o fa-2x" onClick={this.handleTakePhoto} />
-          </p>
+        <div style={{ position: 'absolute', left: '0em', top: '0em' }}>
+          <div style={{ marginLeft: '0.5em', textAlign: 'left' }}>
+            <p>사진</p>
+            <p>
+              <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-dot-circle-o fa-2x" onClick={this.handleTakePhoto} />
+            </p>
+          </div>
         </div>
       </div>
     );

@@ -20,16 +20,16 @@ export class MyMenu extends Component {
           !!this.props.checker.authed &&
           <div style={{ float: 'right' }}>
             <Link to="/">
-              <button style={{ marginRight: '0.2em' }} className="fa fa-home" />
+              <button style={{ marginRight: '0.2em', opacity: '0.5' }} className="fa fa-home" />
             </Link>
             <Link to="/myfiles">
-              <button style={{ marginRight: '0.2em' }} className="fa fa-files-o" />
+              <button style={{ marginRight: '0.2em', opacity: '0.5' }} className="fa fa-files-o" />
             </Link>
             <Link to="/mycamera">
-              <button style={{ marginRight: '0.2em' }} className="fa fa-camera" />
+              <button style={{ marginRight: '0.2em', opacity: '0.5' }} className="fa fa-camera" />
             </Link>
             <Link to="/settings">
-              <button style={{ marginRight: '0.2em' }} className="fa fa-cog" />
+              <button style={{ marginRight: '0.2em', opacity: '0.5' }} className="fa fa-cog" />
             </Link>
           </div>
         }
