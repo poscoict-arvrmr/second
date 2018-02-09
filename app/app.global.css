@@ -45,52 +45,61 @@ a:hover {
   cursor: pointer;
 }
 
-@media screen and (min-width:480px){
+@media screen and (min-width: 480px) {
   #app {
     font-size: 1em;
   }
-  #app .child{
+
+  #app .child {
     font-size: 2em;
     text-align: center;
     position: relative;
   }
+
   #wifi-status {
     font-size: 1em;
   }
+
   #menu {
     font-size: 1em;
   }
 }
 
-@media screen and (min-width:960px){
+@media screen and (min-width: 960px) {
   #app {
     font-size: 1em;
   }
-  #app .child{
+
+  #app .child {
     font-size: 3em;
     text-align: center;
     position: relative;
   }
+
   #wifi-status {
     font-size: 1.5em;
   }
+
   #menu {
     font-size: 2em;
   }
 }
 
-@media screen and (min-width:1200px){
+@media screen and (min-width: 1200px) {
   #app {
     font-size: 1em;
   }
-  #app .child{
+
+  #app .child {
     font-size: 4em;
     text-align: center;
     position: relative;
   }
+
   #wifi-status {
     font-size: 2.5em;
   }
+
   #menu {
     font-size: 3em;
   }

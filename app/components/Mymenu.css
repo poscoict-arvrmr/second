@@ -5,17 +5,20 @@
   margin-bottom: 50px;
   font-size: 2.5rem;
 }
+
 .login {
   padding: 10px;
   font-size: 1.2rem;
   text-align: center;
 }
+
 .topMenu {
   text-align: center;
 }
+
 .camButton {
   background-color: Transparent;
-  border: none; 
+  border: none;
 }
 
 .camScreen {
@@ -50,5 +53,3 @@
 .container a {
   font-size: 1.5rem;
 } */
-
-
