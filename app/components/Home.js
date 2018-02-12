@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import mqtt from 'mqtt';
 import { history } from '../store/configureStore';
 import { mqtt as mqttBrokerAddress } from '../containers/Root';
+import { Button } from 'react-desktop/windows';
 
 let client = null;
 
@@ -113,7 +114,7 @@ export default class Home extends Component<Props> {
         {
           this.props.authed &&
           <div>
-            <div style={{ marginTop: '0.5em' }}>
+            <div style={{ marginTop: '1em' }}>
               <i className="fa fa-user-circle fa-5x" />
             </div>
             <div style={{ marginTop: '0.5em' }}>
@@ -124,14 +125,16 @@ export default class Home extends Component<Props> {
         {
           !this.props.authed &&
           <div>
-            <div style={{ marginTop: '0.5em' }}>
+            <div style={{ marginTop: '1em' }}>
               <i className="fa fa-spinner fa-pulse fa-5x" />
             </div>
             <div style={{ marginTop: '0.5em' }}>
               {this.props.msg}
-              <Link to="/login">
-                <button>Log in</button>
-              </Link>
+              <div>
+                <Link to="/login">
+                  <Button push color="#78A1FF" type="submit">LOG IN</Button>
+                </Link>
+              </div>
             </div>
           </div>
         }

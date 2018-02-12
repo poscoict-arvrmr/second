@@ -92,10 +92,10 @@ export default class Settings extends Component {
   render() {
     return (
       <div id="settings" className="child">
-        <div style={{ marginTop: '0.5em' }}>
+        <div style={{ marginTop: '1em', float:'left', padding: '20px', marginLeft: '2em' }} >
           <i className="fa fa-cog fa-5x" />
         </div>
-        <div style={{ position: 'absolute', right: '1em', top: '0em' }}>
+        <div style={{ position: 'absolute', right: '2em', top: '0.5em', marginRight: '2em' }}>
           <p>Account</p>
           <p>Wi-fi</p>
           <p>Report</p>

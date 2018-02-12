@@ -5,6 +5,8 @@ import mqtt from 'mqtt';
 // this.props로 액션 access 할 수 있음. 따로 import 할 필요 없음.
 import { history } from '../store/configureStore';
 import { pi as cameraAddress, mqtt as mqttBrokerAddress } from '../containers/Root';
+import { Text } from 'react-desktop/windows';
+
 
 let client = null;
 
@@ -144,7 +146,7 @@ export default class Mycamera extends Component {
     const imaSrc = `http://${cameraAddress}/html/loading.jpg`;
     return (
       <div id="camera" className="child">
-        <div style={{ margin: '0em' }}>
+        <div style={{ marginTop: '2em' }}>
           <img
             ref={(c) => { this.image = c; }}
             onLoad={this.handleImageOnLoad}
@@ -155,21 +157,19 @@ export default class Mycamera extends Component {
           />
         </div>
         <div style={{ position: 'absolute', right: '0em', top: '0em' }}>
-          <div sytle={{ marginRight: '0.5em', textAlign: 'right' }}>
-            <p>비디오</p>
-            <p>
+          <div sytle={{ marginRight: '0.5em', textAlign: 'right', marginTop: '2em' }}>
+              <Text horizontalAlignment= 'center' color= 'white'>Video</Text>
+              <br />
               <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-play-circle fa-2x" onClick={this.handleRecordStart} />
               <br />
               <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-stop-circle fa-2x" onClick={this.handleRecordStop} />
-            </p>
           </div>
         </div>
         <div style={{ position: 'absolute', left: '0em', top: '0em' }}>
           <div style={{ marginLeft: '0.5em', textAlign: 'left' }}>
-            <p>사진</p>
-            <p>
+              <Text horizontalAlignment= 'center' color= 'white' font-size='20px'>Photo</Text>
+              <br />
               <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-dot-circle-o fa-2x" onClick={this.handleTakePhoto} />
-            </p>
           </div>
         </div>
       </div>

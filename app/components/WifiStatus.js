@@ -8,6 +8,8 @@ import { firebase } from '../utils/firebase';
 import { history } from '../store/configureStore';
 import { pi as cameraAddress, mqtt as mqttBrokerAddress } from '../containers/Root';
 import type{ defaultStateType } from '../reducers/defaultChecker';
+import { Button, Text} from 'react-desktop/windows';
+
 
 type Props = {
   checker: defaultStateType,
@@ -24,27 +26,27 @@ class WifiStatus extends Component<Props> {
     console.log('[WifiStatus.js]', 'render', this, this.props, this.props.checker, this.props.checker.state);
     return (
       <div id="wifi-status">
-        <div style={{ float: 'left' }}>
+        <div style={{ float: 'left', color: '#78A1FF', paddingLeft: '0.8em' }}>
           {
             this.props.checker.status &&
-            <i className="fa fa-wifi fa-4x" />
+            <i className="fa fa-wifi fa-3x" />
           }
           {
             !this.props.checker.status &&
-            <i className="fa fa-ban fa-4x" />
+            <i className="fa fa-ban fa-3x" />
           }
-          <div style={{ float: 'right' }}>
-            현재위치 : { this.props.router.location.pathname }
+          <div style={{ float: 'right', marginLeft: '1.5em' }}>
+            Current path : { this.props.router.location.pathname }
             <br />
-            camera : {cameraAddress},
+            Camera : {cameraAddress}
             <br />
-            mqtt broker : {mqttBrokerAddress}
+            Mqtt broker : {mqttBrokerAddress}
           </div>
         </div>
         {
           this.props.checker.authed &&
           <div style={{ position: 'absolute', top: '20px', right: '0px' }}>
-            <button onClick={this.singout}>logout</button>
+            <Button push color="#78A1FF" onClick={this.singout}>LOG OUT</Button>
           </div>
         }
         <div style={{ clear: 'both' }} />
