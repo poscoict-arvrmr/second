@@ -1,11 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import mqtt from 'mqtt';
+import { Button } from 'react-desktop/windows';
 import { firebase } from '../utils/firebase';
 // import styles from './Mymenu.css';
 import { history } from '../store/configureStore';
 import { mqtt as mqttBrokerAddress } from '../containers/Root';
-import { Button } from 'react-desktop/windows';
 
 let client = null;
 
@@ -109,18 +109,28 @@ export default class Login extends Component<Props> {
   render() {
     console.log('[Login.js]', 'render', this, this.props, client.options, client.connected);
     return (
-      <div id="login" className="child" style={{ clear: 'both', textAlign: 'center', marginTop: '70px' }}>
+      <div id="login" className="child" style={{ clear: 'both', textAlign: 'center', marginTop: '2em' }}>
         <form onSubmit={this.handleSubmit}>
-          <div style={{ margin: '10px'}}>
-            <label style={{ verticalAlign: 'middle' }}>ID : </label>
-            <input style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} ref={(email) => this.email = email} placeholder="Email" />
+          <div style={{ margin: '0.5em 0 0.5em 0' }}>
+            <div style={{ marginLeft: '2.5em', float: 'left' }}>
+              ID :
+            </div>
+            <div style={{ marginRight: '2.5em', textAlign: 'right' }}>
+              <input style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} ref={(email) => this.email = email} placeholder="Email" />
+            </div>
+            <div style={{ clear: 'both' }} />
           </div>
-          <div style={{ margin: '10px' }}>
-            <label style={{ verticalAlign: 'middle' }}>PW : </label>
-            <input style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
+          <div style={{ margin: '0em 0 0.5em 0' }}>
+            <div style={{ marginLeft: '2.5em', float: 'left' }}>
+              PW :
+            </div>
+            <div style={{ marginRight: '2.5em', textAlign: 'right' }}>
+              <input style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
+            </div>
+            <div style={{ clear: 'both' }} />
           </div>
-          <div style={{ margin: '10px' }}>
-            <Button push color="#78A1FF" type="submit">LOG IN</Button>
+          <div>
+            <Button push color="#78A1FF" type="submit" style={{ fontSize: '1em', lineHeight: '1.2em' }}>LOG IN</Button>
           </div>
         </form>
       </div>

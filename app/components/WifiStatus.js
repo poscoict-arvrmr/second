@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { router } from 'react-router-redux';
+import { Button } from 'react-desktop/windows';
 import { WifiCheckerActions } from '../actions/defaultChecker';
 import { firebase } from '../utils/firebase';
 import { history } from '../store/configureStore';
 import { pi as cameraAddress, mqtt as mqttBrokerAddress } from '../containers/Root';
 import type{ defaultStateType } from '../reducers/defaultChecker';
-import { Button, Text} from 'react-desktop/windows';
 
 
 type Props = {

@@ -35,7 +35,7 @@ li {
 
 a {
   color: white;
-  opacity: 0.75;
+  opacity: 1;
   text-decoration: none;
 }
 
@@ -43,6 +43,16 @@ a:hover {
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
+}
+
+#menu a {
+  color: white;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+#menu button {
+  margin-right: 0.2em;
 }
 
 @media screen and (min-width: 480px) {

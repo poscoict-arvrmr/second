@@ -1,11 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import mqtt from 'mqtt';
+import { Text } from 'react-desktop/windows';
 // CameraPage에서 mapDispatchToProps로 Camera 컴포넌트랑 props를 바로 연결해줬기 때문에
 // this.props로 액션 access 할 수 있음. 따로 import 할 필요 없음.
 import { history } from '../store/configureStore';
 import { pi as cameraAddress, mqtt as mqttBrokerAddress } from '../containers/Root';
-import { Text } from 'react-desktop/windows';
 
 
 let client = null;
