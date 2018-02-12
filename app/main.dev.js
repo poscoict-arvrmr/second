@@ -57,6 +57,21 @@ app.on('window-all-closed', () => {
 
 
 app.on('ready', async () => {
+  // 앱실행전에 mosca broker 실행
+  const spawnmosca = require('child_process').spawn;
+  spawnmosca('mosca', ['-v', '|', 'pino'], {
+          stdio: 'ignore',
+          detached: true
+        }).unref();
+        console.log("mosca spawn done");
+  // 앱실행전에 python 제스쳐인식스크립트 실행
+  const spawnpython = require('child_process').spawn;
+  spawnpython('python3', ['test.py'], {
+	stdio:'ignore',
+        detached: true
+	}).unref();
+	console.log("python test.py");
+  // 기존코드
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
   }
