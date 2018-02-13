@@ -68,6 +68,7 @@ a:hover {
 
   #wifi-status {
     font-size: 1em;
+    font-family: monospace;
   }
 
   #menu {
@@ -88,6 +89,7 @@ a:hover {
 
   #wifi-status {
     font-size: 1.5em;
+    font-family: monospace;
   }
 
   #menu {
@@ -107,11 +109,19 @@ a:hover {
   }
 
   #wifi-status {
-    padding: 10px;
     font-size: 2em;
+    font-family: monospace;
   }
 
   #menu {
     font-size: 3em;
+  }
+
+  #camera div:first-child{
+    margin-top: 0.7em;
+  }
+
+  #camera div span{
+    font-size: 0.5em;
   }
 }

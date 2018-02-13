@@ -92,10 +92,20 @@ export default class MyFiles extends Component {
   render() {
     return (
       <div id="files" className="child">
-        <div style={{ marginTop: '1em', float: 'left', padding: '20px', marginLeft: '2em' }}>
+        <div style={
+          {
+            marginTop: '1em', float: 'left', padding: '20px', marginLeft: '2em'
+          }
+        }
+        >
           <i className="fa fa-files-o fa-5x" />
         </div>
-        <div style={{ position: 'absolute', right: '2em', top: '0.5em', marginRight: '2em' }}>
+        <div style={
+          {
+            position: 'absolute', right: '2em', top: '0.5em', marginRight: '2em'
+          }
+        }
+        >
           <p>Photos</p>
           <p>Videos</p>
           <p>Documents</p>

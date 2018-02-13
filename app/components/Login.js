@@ -20,8 +20,9 @@ type Props = {};
 export default class Login extends Component<Props> {
   props: Props;
   componentWillMount() {
+    this.setState({ isFormEvent: false });
     if (client === null) {
-      console.log('[Login.js]', 'componentWillMount', 'client create');
+      console.log('[Login.js]', 'componentWillMount', 'client create', this.state);
       client = mqtt.connect(`mqtt://${mqttBrokerAddress}:1883`, { clientId: 'login' });
       client.on('message', (topic, message) => {
         console.log('[Login.js]', 'on', 'message', topic, message.toString());
@@ -74,20 +75,24 @@ export default class Login extends Component<Props> {
     }
   }
   componentWillUpdate(nextProps, nextState) {
-    if (!client.connected) {
-      console.log('[Login.js]', 'componentWillUpdate', 'reconnect', nextProps, nextState);
-      client.reconnect();
+    if (!this.state.isFormEvent) {
+      if (!client.connected) {
+        console.log('[Login.js]', 'componentWillUpdate', 'reconnect', nextProps, nextState);
+        client.reconnect();
+      }
+      console.log('[Login.js]', 'componentWillUpdate', 'subscribe', this.state);
+      client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
+      client.subscribe('voice/command', { qos: 0 }, callbackSubscribe);
     }
-    console.log('[Login.js]', 'componentWillUpdate', 'subscribe');
-    client.subscribe('gesture/state', { qos: 0 }, callbackSubscribe);
-    client.subscribe('voice/command', { qos: 0 }, callbackSubscribe);
   }
   componentDidUpdate(prevProps, prevState) {
-    if (!client.connected) {
-      console.log('[Login.js]', 'componentDidUpdate', 'reconnect', prevProps, prevState);
-      client.reconnect();
+    if (!this.state.isFormEvent) {
+      if (!client.connected) {
+        console.log('[Login.js]', 'componentDidUpdate', 'reconnect', prevProps, prevState);
+        client.reconnect();
+      }
+      console.log('[Login.js]', 'componentDidUpdate', 'subscribe', this.state);
     }
-    console.log('[Login.js]', 'componentDidUpdate', 'subscribe');
   }
   componentWillUnmount() {
     console.log('[Login.js]', 'componentWillUnmount', 'unsubscribe');
@@ -97,8 +102,9 @@ export default class Login extends Component<Props> {
     client = null;
   }
   handleSubmit = (e) => {
+    console.log('[Login.js]', 'handleSubmit', this.state);
     e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw.value).then(() => {
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {
       console.log('홈 페이지로 이동합니다.');
       history.push('/');
       return 0;
@@ -106,6 +112,10 @@ export default class Login extends Component<Props> {
       console.log('로그인 오류입니다.', error);
     });
   }
+  handleChange = (e) => {
+    this.setState({ [e.target.type]: e.target.value, isFormEvent: true });
+  }
+
   render() {
     console.log('[Login.js]', 'render', this, this.props, client.options, client.connected);
     return (
@@ -116,7 +126,7 @@ export default class Login extends Component<Props> {
               ID :
             </div>
             <div style={{ marginRight: '2.5em', textAlign: 'right' }}>
-              <input style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} ref={(email) => this.email = email} placeholder="Email" />
+              <input type="email" style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} value={this.email} onChange={this.handleChange} placeholder="Email" />
             </div>
             <div style={{ clear: 'both' }} />
           </div>
@@ -125,7 +135,7 @@ export default class Login extends Component<Props> {
               PW :
             </div>
             <div style={{ marginRight: '2.5em', textAlign: 'right' }}>
-              <input style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
+              <input type="password" style={{ verticalAlign: 'middle', width: '10em', fontSize: '1em' }} value={this.password} onChange={this.handleChange} placeholder="Password" />
             </div>
             <div style={{ clear: 'both' }} />
           </div>

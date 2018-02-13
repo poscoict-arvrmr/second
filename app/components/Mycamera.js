@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import mqtt from 'mqtt';
-import { Text } from 'react-desktop/windows';
 // CameraPage에서 mapDispatchToProps로 Camera 컴포넌트랑 props를 바로 연결해줬기 때문에
 // this.props로 액션 access 할 수 있음. 따로 import 할 필요 없음.
 import { history } from '../store/configureStore';
@@ -94,8 +93,9 @@ export default class Mycamera extends Component {
   }
 
   // Handle raspberry pi videos and photos actions
-  handleImageOnLoad = (e) => {
-    console.log('[Mycamera.js]', 'handleImageOnLoad', e);
+  handleImageOnLoad = () => {
+    // handleImageOnLoad = (e) => { e를 생략함.
+    // console.log('[Mycamera.js]', 'handleImageOnLoad', e);
     this.image.src = `http://${cameraAddress}/html/cam_pic.php?time=${new Date().getTime()}`;
   }
   handleImageOnError = (e) => {
@@ -112,7 +112,7 @@ export default class Mycamera extends Component {
       this.image.src = `http://${cameraAddress}/html/cmd_pipe.php?cmd=ca 1`;
       this.props.startRec();
     } else {
-      console.log("Didn't stop previous recording");
+      console.log('Didn\'t stop previous recording');
     }
   }
 
@@ -123,7 +123,7 @@ export default class Mycamera extends Component {
       this.image.src = `http://${cameraAddress}/html/cmd_pipe.php?cmd=ca 0`;
       this.props.stopRec();
     } else {
-      console.log("Didn't start any recording yet");
+      console.log('Didn\'t start any recording yet');
     }
   }
 
@@ -146,7 +146,7 @@ export default class Mycamera extends Component {
     const imaSrc = `http://${cameraAddress}/html/loading.jpg`;
     return (
       <div id="camera" className="child">
-        <div style={{ marginTop: '2em' }}>
+        <div>
           <img
             ref={(c) => { this.image = c; }}
             onLoad={this.handleImageOnLoad}
@@ -157,19 +157,17 @@ export default class Mycamera extends Component {
           />
         </div>
         <div style={{ position: 'absolute', right: '0em', top: '0em' }}>
-          <div sytle={{ marginRight: '0.5em', textAlign: 'right', marginTop: '2em' }}>
-              <Text horizontalAlignment= 'center' color= 'white'>Video</Text>
-              <br />
-              <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-play-circle fa-2x" onClick={this.handleRecordStart} />
-              <br />
-              <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-stop-circle fa-2x" onClick={this.handleRecordStop} />
+          <span>Video</span>
+          <div style={{ margin: '0.5em', textAlign: 'right' }}>
+            <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-play-circle fa-2x" onClick={this.handleRecordStart} />
+            <br />
+            <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-stop-circle fa-2x" onClick={this.handleRecordStop} />
           </div>
         </div>
         <div style={{ position: 'absolute', left: '0em', top: '0em' }}>
-          <div style={{ marginLeft: '0.5em', textAlign: 'left' }}>
-              <Text horizontalAlignment= 'center' color= 'white' font-size='20px'>Photo</Text>
-              <br />
-              <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-dot-circle-o fa-2x" onClick={this.handleTakePhoto} />
+          <span>Photo</span>
+          <div style={{ margin: '0.5em', textAlign: 'left' }}>
+            <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-dot-circle-o fa-2x" onClick={this.handleTakePhoto} />
           </div>
         </div>
       </div>
