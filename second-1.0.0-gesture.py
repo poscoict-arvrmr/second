@@ -2,23 +2,73 @@
 import skywriter
 import signal
 import paho.mqtt.client as mqtt
+from datetime import datetime
 
 broker_address="127.0.0.1"
 print("creating new client instance")
 client = mqtt.Client("Pi")
-client.connect(broker_address, 1883)
+client.connect(broker_address)
 
+basetime = datetime.now().ctime()
+
+@skywriter.flick()
+def flick(start,finish):
+    global basetime
+    now = datetime.now().ctime()
+    if start == 'east' :
+        if finish == 'west' : 
+            basetime = now
+            client.publish("gesture/state", "left")
+            print('left')
+    elif start == 'west' :
+        if finish == 'east' :
+            basetime = now
+            client.publish("gesture/state", "right")
+            print('right')
+    elif start == 'north' :
+        if finish == 'south' :
+            basetime = now
+            client.publish("gesture/state", "down")
+            print('down')
+    elif start == 'south' :
+        if finish == 'north' :
+            basetime = now
+            client.publish("gesture/state", "up")
+            print('up')
+
+
+@skywriter.touch()
+def touch(position):
+    global basetime
+    now = datetime.now().ctime()
+    if basetime != now :
+        basetime = now
+        client.publish("gesture/state", "double tap")
+        print('double tap')
+
+
+'''
 @skywriter.double_tap()
 def doubletap(position):
-	client.publish("gesture/state", "double tap")
-	print('Double tap!', position)
+    global basetime
+    now = datetime.now().ctime()
+    if basetime != now :
+        basetime = now
+        client.publish("gesture/state", "double tap")
+        print('Double tap!', position, now)
 
 @skywriter.tap()
 def tap(position):
-    if position=='west':
-        client.publish("gesture/state", "right")
-    elif position=='east':
-        client.publish("gesture/state", "left")
-    print('Tap!', position)
+    global basetime
+    now = datetime.now().ctime()
+    if basetime != now :
+        basetime = now
+        if position == 'west' :
+            client.publish("gesture/state", "right")
+            print('Tap!', 'right', position, now)
+        elif position == 'east' :
+            client.publish("gesture/state", "left")
+            print('Tap!', 'left', position, now)
+'''
 
 signal.pause()
