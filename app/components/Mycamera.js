@@ -5,6 +5,7 @@ import mqtt from 'mqtt';
 // this.props로 액션 access 할 수 있음. 따로 import 할 필요 없음.
 import { history } from '../store/configureStore';
 import { pi as cameraAddress, mqtt as mqttBrokerAddress } from '../containers/Root';
+import { firebase } from '../utils/firebase';
 
 
 let client = null;
@@ -33,6 +34,12 @@ export default class Mycamera extends Component {
               window.responsiveVoice.speak('설정 페이지로 이동합니다.', 'Korean Female');
               console.log('설정 페이지로 이동합니다.');
               history.push('/settings');
+            } else if (message.toString() === 'double tap') {
+              {this.handleTakePhoto()}
+            } else if (message.toString() === 'up') {
+              {this.handleRecordStart()}
+            } else if (message.toString() === 'down') {
+              {this.handleRecordStop()}
             } else {
               console.log('지원하지 않는 제스쳐입니다.');
             }
