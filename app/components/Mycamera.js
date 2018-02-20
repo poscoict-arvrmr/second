@@ -163,7 +163,7 @@ export default class Mycamera extends Component {
             width="75%"
           />
         </div>
-        <div style={{ position: 'absolute', right: '0em', top: '0em' }}>
+        <div style={{ position: 'absolute', right: '0em', top: '2em', fontSize: '0.7em' }}>
           <span>Video</span>
           <div style={{ margin: '0.5em', textAlign: 'right' }}>
             <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-play-circle fa-2x" onClick={this.handleRecordStart} />
@@ -171,7 +171,7 @@ export default class Mycamera extends Component {
             <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-stop-circle fa-2x" onClick={this.handleRecordStop} />
           </div>
         </div>
-        <div style={{ position: 'absolute', left: '0em', top: '0em' }}>
+        <div style={{ position: 'absolute', left: '0em', top: '2em', fontSize: '0.7em' }}>
           <span>Photo</span>
           <div style={{ margin: '0.5em', textAlign: 'left' }}>
             <button style={{ backgroundColor: 'Transparent', border: 'none', color: 'white' }} className="fa fa-dot-circle-o fa-2x" onClick={this.handleTakePhoto} />

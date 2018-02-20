@@ -106,9 +106,9 @@ export default class MyFiles extends Component {
           }
         }
         >
-          <p>Photos</p>
-          <p>Videos</p>
-          <p>Documents</p>
+          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '30px', padding: '10px', backgroundColor: '#2b3b5f'}}>Photos</p>
+          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '30px', padding: '10px', backgroundColor: '#2b3b5f'}}>Videos</p>
+          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '30px', padding: '10px', backgroundColor: '#2b3b5f'}}>Documents</p>
         </div>
       </div>
     );

@@ -106,9 +106,9 @@ export default class Settings extends Component {
           }
         }
         >
-          <p>Account</p>
-          <p>Wi-fi</p>
-          <p>Report</p>
+          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '20px', padding: '15px', backgroundColor: '#2b3b5f'}}>Account</p>
+          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '20px', padding: '15px', backgroundColor: '#2b3b5f'}}>Wi-fi</p>
+          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '20px', padding: '15px', backgroundColor: '#2b3b5f'}}>Report</p>
         </div>
       </div>
     );
