@@ -36,14 +36,22 @@ export default class MyFiles extends Component {
             }
             return;
           case 'voice/command':
-            if (message.toString() === '이전 메뉴로') {
+            if (message.toString() === '이전메뉴') {
               window.responsiveVoice.speak('시작 페이지로 이동합니다.', 'Korean Female');
               console.log('시작 페이지로 이동합니다.');
               history.push('/');
-            } else if (message.toString() === '다음 메뉴로') {
+            } else if (message.toString() === '다음메뉴') {
               window.responsiveVoice.speak('카메라 페이지로 이동합니다.', 'Korean Female');
               console.log('카메라 페이지로 이동합니다.');
               history.push('/mycamera');
+            } else if (message.toString() === '카메라') {
+              window.responsiveVoice.speak('카메라 페이지로 이동합니다.', 'Korean Female');
+              console.log('카메라 페이지로 이동합니다.');
+              history.push('/mycamera');
+            } else if (message.toString() === '설정') {
+              window.responsiveVoice.speak('설정 페이지로 이동합니다.', 'Korean Female');
+              console.log('설정 페이지로 이동합니다.');
+              history.push('/settings');
             } else {
               console.log('지원하지 않는 제스쳐입니다.');
             }

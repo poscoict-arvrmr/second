@@ -50,11 +50,11 @@ export default class Home extends Component<Props> {
               window.responsiveVoice.speak('로그인 페이지로 이동합니다.', 'Korean Female');
               console.log('로그인 페이지로 이동합니다.');
               history.push('/login');
-            } else if (this.props.authed && message.toString() === '이전 메뉴로') {
+            } else if (this.props.authed && message.toString() === '이전메뉴') {
               window.responsiveVoice.speak('설정 페이지로 이동합니다.', 'Korean Female');
               console.log('설정 페이지로 이동합니다.');
               history.push('/settings');
-            } else if (this.props.authed && message.toString() === '다음 메뉴로') {
+            } else if (this.props.authed && message.toString() === '다음메뉴') {
               window.responsiveVoice.speak('파일 페이지로 이동합니다.', 'Korean Female');
               console.log('파일 페이지로 이동합니다.');
               history.push('/myfiles');

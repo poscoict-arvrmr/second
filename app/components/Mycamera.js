@@ -35,24 +35,44 @@ export default class Mycamera extends Component {
               console.log('설정 페이지로 이동합니다.');
               history.push('/settings');
             } else if (message.toString() === 'double tap') {
+              window.responsiveVoice.speak('사진을 촬영합니다.', 'Korean Female');
               {this.handleTakePhoto()}
             } else if (message.toString() === 'up') {
+              window.responsiveVoice.speak('영상을 촬영합니다.', 'Korean Female');
               {this.handleRecordStart()}
             } else if (message.toString() === 'down') {
+              window.responsiveVoice.speak('영상을 촬영을 완료합니다.', 'Korean Female');
               {this.handleRecordStop()}
             } else {
               console.log('지원하지 않는 제스쳐입니다.');
             }
             return;
           case 'voice/command':
-            if (message.toString() === '이전 메뉴로') {
+            if (message.toString() === '파일') {
               window.responsiveVoice.speak('파일 페이지로 이동합니다.', 'Korean Female');
               console.log('파일 페이지로 이동합니다.');
               history.push('/myfiles');
-            } else if (message.toString() === '다음 메뉴로') {
+            } else if (message.toString() === '설정') {
               window.responsiveVoice.speak('설정 페이지로 이동합니다.', 'Korean Female');
               console.log('설정 페이지로 이동합니다.');
               history.push('/settings');
+            } else if (message.toString() === '이전메뉴') {
+              window.responsiveVoice.speak('파일 페이지로 이동합니다.', 'Korean Female');
+              console.log('파일 페이지로 이동합니다.');
+              history.push('/myfiles');
+            } else if (message.toString() === '다음메뉴') {
+              window.responsiveVoice.speak('설정 페이지로 이동합니다.', 'Korean Female');
+              console.log('설정 페이지로 이동합니다.');
+              history.push('/settings');
+            } else if (message.toString() === '사진') {
+              window.responsiveVoice.speak('사진을 촬영합니다.', 'Korean Female');
+              {this.handleTakePhoto()}
+            } else if (message.toString() === '영상시작') {
+              window.responsiveVoice.speak('영상을 촬영합니다.', 'Korean Female');
+              {this.handleRecordStart()}
+            } else if (message.toString() === '영상스탑') {
+              window.responsiveVoice.speak('영상을 촬영을 완료합니다.', 'Korean Female');
+              {this.handleRecordStop()}
             } else {
               console.log('지원하지 않는 제스쳐입니다.');
             }
