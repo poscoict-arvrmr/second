@@ -58,6 +58,10 @@ export default class Home extends Component<Props> {
               window.responsiveVoice.speak('파일 페이지로 이동합니다.', 'Korean Female');
               console.log('파일 페이지로 이동합니다.');
               history.push('/myfiles');
+            } else if (this.props.authed && message.toString() === '카메라') {
+              window.responsiveVoice.speak('카메라 페이지로 이동합니다.', 'Korean Female');
+              console.log('카메라 페이지로 이동합니다.');
+              history.push('/mycamera');
             } else {
               console.log('지원하지 않는 제스쳐입니다.');
             }
