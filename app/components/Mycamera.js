@@ -71,7 +71,7 @@ export default class Mycamera extends Component {
               window.responsiveVoice.speak('영상을 촬영합니다.', 'Korean Female');
               {this.handleRecordStart()}
             } else if (message.toString() === '영상스탑') {
-              window.responsiveVoice.speak('영상을 촬영을 완료합니다.', 'Korean Female');
+              window.responsiveVoice.speak('영상촬영을 완료합니다.', 'Korean Female');
               {this.handleRecordStop()}
             } else {
               console.log('지원하지 않는 제스쳐입니다.');
@@ -136,26 +136,30 @@ export default class Mycamera extends Component {
     console.log('[Mycamera.js]', 'handleRecordStart', e);
     const isRec = this.props.camera.isRecording;
     if (!isRec) {
+      window.responsiveVoice.speak('영상을 촬영합니다.', 'Korean Female');
       this.image.src = `http://${cameraAddress}/html/cmd_pipe.php?cmd=ca 1`;
       this.props.startRec();
     } else {
-      console.log('Didn\'t stop previous recording');
+      window.responsiveVoice.speak('이전 촬영이 끝나지 않았습니다.', 'Korean Female');
     }
   }
 
   handleRecordStop = (e) => {
     console.log('[Mycamera.js]', 'handleRecordStop', e);
+    
     const isRec = this.props.camera.isRecording;
     if (isRec) {
       this.image.src = `http://${cameraAddress}/html/cmd_pipe.php?cmd=ca 0`;
       this.props.stopRec();
+      window.responsiveVoice.speak('영상촬영을 완료합니다.', 'Korean Female');
     } else {
-      console.log('Didn\'t start any recording yet');
+      window.responsiveVoice.speak('촬영을 먼저 시작하세요.', 'Korean Female');
     }
   }
 
   handleTakePhoto = (e) => {
     console.log('[Mycamera.js]', 'handleTakePhoto', e);
+    window.responsiveVoice.speak('사진을 촬영합니다.', 'Korean Female');
     this.image.src = `http://${cameraAddress}/html/cmd_pipe.php?cmd=im`;
   }
 
