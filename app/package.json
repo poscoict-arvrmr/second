@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "firebase": "^4.9.1",
-    "mqtt": "^2.15.1"
+    "mqtt": "^2.15.1",
+    "font-awesome-animation": "^0.2.0"
   }
 }

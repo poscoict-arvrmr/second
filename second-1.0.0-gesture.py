@@ -9,6 +9,7 @@ print("creating new client instance")
 client = mqtt.Client("Pi")
 client.connect(broker_address)
 
+
 basetime = datetime.now().ctime()
 
 @skywriter.flick()
@@ -19,22 +20,22 @@ def flick(start,finish):
         if finish == 'west' : 
             basetime = now
             client.publish("gesture/state", "left")
-            print('left')
+            print('left', now)
     elif start == 'west' :
         if finish == 'east' :
             basetime = now
             client.publish("gesture/state", "right")
-            print('right')
+            print('right', now)
     elif start == 'north' :
         if finish == 'south' :
             basetime = now
             client.publish("gesture/state", "down")
-            print('down')
+            print('down', now)
     elif start == 'south' :
         if finish == 'north' :
             basetime = now
             client.publish("gesture/state", "up")
-            print('up')
+            print('up', now)
 
 
 @skywriter.touch()
@@ -44,7 +45,7 @@ def touch(position):
     if basetime != now :
         basetime = now
         client.publish("gesture/state", "double tap")
-        print('double tap')
+        print('double tap', now)
 
 
 '''

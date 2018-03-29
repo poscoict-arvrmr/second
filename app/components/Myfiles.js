@@ -14,7 +14,12 @@ function callbackSubscribe(err, granted) {
   console.log('[MyFiles.js]', 'subscribe callback', err, granted);
 }
 
+type Props = {
+  menu: string
+};
+
 export default class MyFiles extends Component {
+  props: Props;
   componentWillMount() {
     if (client === null) {
       console.log('[MyFiles.js]', 'componentWillMount', 'client create');
@@ -36,22 +41,14 @@ export default class MyFiles extends Component {
             }
             return;
           case 'voice/command':
-            if (message.toString() === '이전메뉴') {
+            if (message.toString() === '이전 메뉴로') {
               window.responsiveVoice.speak('시작 페이지로 이동합니다.', 'Korean Female');
               console.log('시작 페이지로 이동합니다.');
               history.push('/');
-            } else if (message.toString() === '다음메뉴') {
+            } else if (message.toString() === '다음 메뉴로') {
               window.responsiveVoice.speak('카메라 페이지로 이동합니다.', 'Korean Female');
               console.log('카메라 페이지로 이동합니다.');
               history.push('/mycamera');
-            } else if (message.toString() === '카메라') {
-              window.responsiveVoice.speak('카메라 페이지로 이동합니다.', 'Korean Female');
-              console.log('카메라 페이지로 이동합니다.');
-              history.push('/mycamera');
-            } else if (message.toString() === '설정') {
-              window.responsiveVoice.speak('설정 페이지로 이동합니다.', 'Korean Female');
-              console.log('설정 페이지로 이동합니다.');
-              history.push('/settings');
             } else {
               console.log('지원하지 않는 제스쳐입니다.');
             }
@@ -114,9 +111,48 @@ export default class MyFiles extends Component {
           }
         }
         >
-          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '30px', padding: '10px', backgroundColor: '#2b3b5f'}}>Photos</p>
-          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '30px', padding: '10px', backgroundColor: '#2b3b5f'}}>Videos</p>
-          <p style={{ border: '2px solid #7aa2ff', borderRadius: '15px', margin: '30px', padding: '10px', backgroundColor: '#2b3b5f'}}>Documents</p>
+          {
+            this.props.menu === 'photo' &&
+            <p>
+              <i className="fa fa-angle-double-right faa-passing animated" />
+              <span style={{ width: '0.5em' }}>&nbsp;</span>
+              Photos
+              <span style={{ width: '0.5em' }}>&nbsp;</span>
+              <i className="fa fa-angle-double-left faa-passing-reverse animated" />
+            </p>
+          }
+          {
+            !(this.props.menu === 'photo') &&
+            <p>Photos</p>
+          }
+          {
+            this.props.menu === 'video' &&
+            <p>
+              <i className="fa fa-angle-double-right faa-passing animated" />
+              <span style={{ width: '0.5em' }}>&nbsp;</span>
+              Videos
+              <span style={{ width: '0.5em' }}>&nbsp;</span>
+              <i className="fa fa-angle-double-left faa-passing-reverse animated" />
+            </p>
+          }
+          {
+            !(this.props.menu === 'video') &&
+            <p>Videos</p>
+          }
+          {
+            this.props.menu === 'document' &&
+            <p>
+              <i className="fa fa-angle-double-right faa-passing animated" />
+              <span style={{ width: '0.5em' }}>&nbsp;</span>
+              Documents
+              <span style={{ width: '0.5em' }}>&nbsp;</span>
+              <i className="fa fa-angle-double-left faa-passing-reverse animated" />
+            </p>
+          }
+          {
+            !(this.props.menu === 'document') &&
+            <p>Documents</p>
+          }
         </div>
       </div>
     );
